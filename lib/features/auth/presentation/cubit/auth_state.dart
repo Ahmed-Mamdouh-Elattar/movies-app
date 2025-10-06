@@ -1,10 +1,9 @@
-// part of 'auth_cubit.dart';
+part of 'auth_cubit.dart';
 
-// abstract class AuthState extends Equatable {
-//   const AuthState();
-
-//   @override
-//   List<Object> get props => [];
-// }
-
-// class AuthInitial extends AuthState {}
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.initial() = Initial;
+  const factory AuthState.loading() = Loading;
+  const factory AuthState.success(UserCredential user) = Success;
+  const factory AuthState.failure(String message) = Failure;
+}
