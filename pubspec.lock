@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
+  circle_flags:
+    dependency: transitive
+    description:
+      name: circle_flags
+      sha256: "875cd64e607b46838ce429e2f7cc88c615f8514181d2d0f9e73de37ba3fb2f52"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   clock:
     dependency: transitive
     description:
@@ -177,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  diacritic:
+    dependency: transitive
+    description:
+      name: diacritic
+      sha256: "12981945ec38931748836cd76f2b38773118d0baef3c68404bdfde9566147876"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6"
   facebook_auth_desktop:
     dependency: transitive
     description:
@@ -278,6 +294,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.1"
+  flutter_country_selector:
+    dependency: transitive
+    description:
+      name: flutter_country_selector
+      sha256: "08cd36fa498149dc49396001f162ce003711a085ed367f0039c56b881bc88933"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.17+1"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -310,6 +334,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_secure_storage:
     dependency: transitive
     description:
@@ -496,6 +525,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.2"
   io:
     dependency: transitive
     description:
@@ -680,6 +717,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  phone_form_field:
+    dependency: "direct main"
+    description:
+      name: phone_form_field
+      sha256: b0a472fada98f5fcc75fc23021d04144b066a8064be957929b9fb3a25bbabe1b
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.0.12"
+  phone_numbers_parser:
+    dependency: transitive
+    description:
+      name: phone_numbers_parser
+      sha256: f95f15494536712cf6c5c4303bd7c4dae788863184d2dff03fda5e084a623c01
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.15"
+  pinput:
+    dependency: "direct main"
+    description:
+      name: pinput
+      sha256: c41f42ee301505ae2375ec32871c985d3717bf8aee845620465b286e0140aad2
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
   platform:
     dependency: transitive
     description:
@@ -877,6 +938,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_platform:
+    dependency: transitive
+    description:
+      name: universal_platform
+      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   vector_graphics:
     dependency: transitive
     description:

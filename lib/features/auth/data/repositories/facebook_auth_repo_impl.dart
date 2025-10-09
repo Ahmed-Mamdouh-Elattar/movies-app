@@ -3,7 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/auth/domain/repositories/auth_repo.dart';
 
-class FacebookAuthRepoImpl implements AuthRepo {
+class FacebookAuthRepoImpl implements SocialAuthRepo {
   @override
   Future<Result<UserCredential>> signInOrUp() async {
     // Trigger the sign-in flow

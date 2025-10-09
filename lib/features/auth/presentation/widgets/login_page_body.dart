@@ -52,7 +52,9 @@ class LoginPageBody extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(PageName.phoneAuth);
+              },
               icon: Icons.phone,
               label: 'Login with Phone Number',
             ),

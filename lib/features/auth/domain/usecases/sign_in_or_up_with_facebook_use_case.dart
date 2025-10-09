@@ -3,7 +3,7 @@ import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/auth/domain/repositories/auth_repo.dart';
 
 class SignInOrUpWithFacebookUseCase {
-  final AuthRepo _authRepo;
+  final SocialAuthRepo _authRepo;
 
   SignInOrUpWithFacebookUseCase(this._authRepo);
 

@@ -5,7 +5,7 @@ import 'package:movies_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleAuthRepoImp implements AuthRepo {
+class GoogleAuthRepoImp implements SocialAuthRepo {
   @override
   Future<Result<UserCredential>> signInOrUp() async {
     // Trigger the authentication flow
