@@ -33,7 +33,9 @@ class RegisterPageBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await context.read<AuthCubit>().signInOrUpWithFacebook();
+              },
               isSvg: true,
               icon: Assets.iconsFacebook,
               label: 'Register with Facebook',
