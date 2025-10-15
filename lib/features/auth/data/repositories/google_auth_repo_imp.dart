@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:movies_app/core/utils/result.dart';
-import 'package:movies_app/features/auth/domain/repositories/auth_repo.dart';
+import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

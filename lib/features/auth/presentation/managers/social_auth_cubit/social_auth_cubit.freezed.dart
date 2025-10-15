@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_cubit.dart';
+part of 'social_auth_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'auth_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$AuthState {
+mixin _$SocialAuthState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SocialAuthState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState()';
+  return 'SocialAuthState()';
 }
 
 
 }
 
 /// @nodoc
-class $AuthStateCopyWith<$Res>  {
-$AuthStateCopyWith(AuthState _, $Res Function(AuthState) __);
+class $SocialAuthStateCopyWith<$Res>  {
+$SocialAuthStateCopyWith(SocialAuthState _, $Res Function(SocialAuthState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [AuthState].
-extension AuthStatePatterns on AuthState {
+/// Adds pattern-matching-related methods to [SocialAuthState].
+extension SocialAuthStatePatterns on SocialAuthState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,7 +192,7 @@ return failure(_that.message);case _:
 /// @nodoc
 
 
-class Initial implements AuthState {
+class Initial implements SocialAuthState {
   const Initial();
   
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.initial()';
+  return 'SocialAuthState.initial()';
 }
 
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class Loading implements AuthState {
+class Loading implements SocialAuthState {
   const Loading();
   
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.loading()';
+  return 'SocialAuthState.loading()';
 }
 
 
@@ -256,13 +256,13 @@ String toString() {
 /// @nodoc
 
 
-class Success implements AuthState {
+class Success implements SocialAuthState {
   const Success(this.user);
   
 
  final  UserCredential user;
 
-/// Create a copy of AuthState
+/// Create a copy of SocialAuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -281,14 +281,14 @@ int get hashCode => Object.hash(runtimeType,user);
 
 @override
 String toString() {
-  return 'AuthState.success(user: $user)';
+  return 'SocialAuthState.success(user: $user)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+abstract mixin class $SuccessCopyWith<$Res> implements $SocialAuthStateCopyWith<$Res> {
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -307,7 +307,7 @@ class _$SuccessCopyWithImpl<$Res>
   final Success _self;
   final $Res Function(Success) _then;
 
-/// Create a copy of AuthState
+/// Create a copy of SocialAuthState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
   return _then(Success(
@@ -322,13 +322,13 @@ as UserCredential,
 /// @nodoc
 
 
-class Failure implements AuthState {
+class Failure implements SocialAuthState {
   const Failure(this.message);
   
 
  final  String message;
 
-/// Create a copy of AuthState
+/// Create a copy of SocialAuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -347,14 +347,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'AuthState.failure(message: $message)';
+  return 'SocialAuthState.failure(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $FailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+abstract mixin class $FailureCopyWith<$Res> implements $SocialAuthStateCopyWith<$Res> {
   factory $FailureCopyWith(Failure value, $Res Function(Failure) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
@@ -373,7 +373,7 @@ class _$FailureCopyWithImpl<$Res>
   final Failure _self;
   final $Res Function(Failure) _then;
 
-/// Create a copy of AuthState
+/// Create a copy of SocialAuthState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(Failure(
