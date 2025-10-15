@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/routing/page_name.dart';
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 
 class PhoneAuthPage extends StatefulWidget {
   const PhoneAuthPage({super.key});
@@ -13,7 +17,7 @@ class PhoneAuthPage extends StatefulWidget {
 
 class _PhoneAuthPageState extends State<PhoneAuthPage> {
   final _formKey = GlobalKey<FormState>();
-
+  late final PhoneNumber _phoneNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,37 +29,34 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
             /// params
             Form(
               key: _formKey,
-              child: PhoneFormField(
-                initialValue: const PhoneNumber(isoCode: IsoCode.EG, nsn: ""),
-                style: const TextStyle(color: Colors.white),
+              child: InternationalPhoneNumberInput(
+                onSaved: (value) {
+                  _phoneNumber = value;
+                },
+                onInputChanged: (value) {},
+                selectorTextStyle: const TextStyle(color: AppColor.goldOrange),
+                textStyle: const TextStyle(color: Colors.white),
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                initialValue: PhoneNumber(dialCode: "+20", isoCode: "EG"),
+                selectorConfig: const SelectorConfig(
+                  selectorType: PhoneInputSelectorType.DIALOG,
 
-                validator: PhoneValidator.compose([
-                  PhoneValidator.required(context),
-                  PhoneValidator.validMobile(context),
-                ]),
-                countrySelectorNavigator: const CountrySelectorNavigator.page(
-                  titleStyle: TextStyle(color: Colors.white),
-                  subtitleStyle: TextStyle(color: Colors.white60),
-                ),
-
-                enabled: true,
-                isCountrySelectionEnabled: true,
-                isCountryButtonPersistent: true,
-                countryButtonStyle: const CountryButtonStyle(
-                  showDialCode: true,
-                  textStyle: TextStyle(color: AppColor.blue),
-                  dropdownIconColor: AppColor.goldOrange,
-
-                  showFlag: true,
-                  flagSize: 16,
+                  useEmoji: true,
                 ),
               ),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  context.push(PageName.otpVerification);
+                  _formKey.currentState!.save();
+                  log(_phoneNumber.phoneNumber!);
+                  await context.read<PhoneAuthCubit>().sendCode(
+                    _phoneNumber.phoneNumber!,
+                  );
+                  if (context.mounted) {
+                    context.push(PageName.otpVerification);
+                  }
                 }
               },
               child: const Text('Send  SMS'),

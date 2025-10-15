@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/config/app_color.dart';
+import 'package:movies_app/core/utils/app_toast.dart';
+import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpVerificationPage extends StatefulWidget {
@@ -12,6 +15,13 @@ class OtpVerificationPage extends StatefulWidget {
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  TextEditingController? otpFieldController = TextEditingController();
+  @override
+  void dispose() {
+    otpFieldController?.dispose();
+    super.dispose();
+  }
+
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
@@ -33,21 +43,41 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Pinput(
-                defaultPinTheme: defaultPinTheme,
-                validator: (s) {
-                  return s == '2222' ? null : 'Pin is incorrect';
-                },
-                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                showCursor: true,
-                onCompleted: (pin) => log(pin),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(onPressed: () {}, child: const Text('Verify OTP')),
-            ],
+          child: BlocConsumer<PhoneAuthCubit, PhoneAuthState>(
+            listener: (context, state) {
+              if (state is Failure) {
+                showAppToast(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Pinput(
+                    length: 6,
+                    controller: otpFieldController,
+                    defaultPinTheme: defaultPinTheme,
+
+                    showCursor: true,
+                  ),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log(state.toString());
+                      log(otpFieldController!.text.length.toString());
+                      if (state is Success &&
+                          otpFieldController!.text.length == 6) {
+                        await context.read<PhoneAuthCubit>().verifyCode(
+                          state.verificationId,
+                          otpFieldController!.text,
+                        );
+                      }
+                    },
+                    child: const Text('Verify OTP'),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
