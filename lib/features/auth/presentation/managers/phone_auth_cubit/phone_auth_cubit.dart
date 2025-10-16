@@ -10,7 +10,7 @@ part 'phone_auth_cubit.freezed.dart';
 class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   final SendCodeUseCase _sendCodeUseCase;
   final VerifyCodeUseCase _verifyCodeUseCase;
-
+  String? verificationId;
   PhoneAuthCubit({
     required SendCodeUseCase sendCodeUseCase,
     required VerifyCodeUseCase verifyCodeUseCase,
@@ -23,20 +23,25 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     final result = await _sendCodeUseCase.call(phoneNumber);
     switch (result) {
       case ResultSuccess<String>(:final data):
-        emit(PhoneAuthState.success(verificationId: data));
+        verificationId = data;
+        emit(const PhoneAuthState.success());
       case ResultFailure<String>(:final message):
         emit(PhoneAuthState.failure(message));
     }
   }
 
-  Future<void> verifyCode(String verificationId, String smsCode) async {
+  Future<void> verifyCode(String smsCode) async {
     emit(const PhoneAuthState.loading());
-    final result = await _verifyCodeUseCase.call(verificationId, smsCode);
-    switch (result) {
-      case ResultSuccess<String>():
-        emit(const PhoneAuthState.success());
-      case ResultFailure<String>(:final message):
-        emit(PhoneAuthState.failure(message));
+    if (verificationId != null) {
+      final result = await _verifyCodeUseCase.call(verificationId!, smsCode);
+      switch (result) {
+        case ResultSuccess<String>():
+          emit(const PhoneAuthState.success());
+        case ResultFailure<String>(:final message):
+          emit(PhoneAuthState.failure(message));
+      }
+    } else {
+      emit(const PhoneAuthState.failure("Check the number and send SMS again"));
     }
   }
 }

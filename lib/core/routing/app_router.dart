@@ -5,7 +5,6 @@ import 'package:movies_app/core/services/service_locator.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit/social_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/pages/login_page.dart';
-import 'package:movies_app/features/auth/presentation/pages/otp_verification_page.dart';
 import 'package:movies_app/features/auth/presentation/pages/phone_auth_page.dart';
 
 import 'package:movies_app/features/auth/presentation/pages/register_page.dart';
@@ -31,24 +30,13 @@ final appRouter = GoRouter(
               path: 'register',
               builder: (context, state) => const RegisterPage(),
             ),
-            ShellRoute(
-              builder: (context, state, child) => BlocProvider(
-                create: (context) => getIt<PhoneAuthCubit>(),
-                child: child,
-              ),
 
-              routes: [
-                GoRoute(
-                  path: 'phone-auth',
-                  builder: (context, state) => const PhoneAuthPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'otp-verification',
-                      builder: (context, state) => const OtpVerificationPage(),
-                    ),
-                  ],
-                ),
-              ],
+            GoRoute(
+              path: 'phone-auth',
+              builder: (context, state) => BlocProvider(
+                create: (context) => getIt<PhoneAuthCubit>(),
+                child: const PhoneAuthPage(),
+              ),
             ),
           ],
         ),

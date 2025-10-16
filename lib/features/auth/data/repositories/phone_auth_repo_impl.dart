@@ -49,6 +49,8 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
 
       await _auth.signInWithCredential(credential);
       return const Result.success("Success");
+    } on FirebaseAuthException catch (e) {
+      return Result.failure(e.message ?? "Something went wrong");
     } catch (e) {
       return Result.failure(e.toString());
     }

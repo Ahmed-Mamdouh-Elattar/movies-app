@@ -128,13 +128,13 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String message)?  failure,TResult Function( String verificationId)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String message)?  failure,TResult Function()?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Failure() when failure != null:
 return failure(_that.message);case Success() when success != null:
-return success(_that.verificationId);case _:
+return success();case _:
   return orElse();
 
 }
@@ -152,13 +152,13 @@ return success(_that.verificationId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String message)  failure,required TResult Function( String verificationId)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String message)  failure,required TResult Function()  success,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Failure():
 return failure(_that.message);case Success():
-return success(_that.verificationId);case _:
+return success();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +175,13 @@ return success(_that.verificationId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String message)?  failure,TResult? Function( String verificationId)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String message)?  failure,TResult? Function()?  success,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Failure() when failure != null:
 return failure(_that.message);case Success() when success != null:
-return success(_that.verificationId);case _:
+return success();case _:
   return null;
 
 }
@@ -323,66 +323,32 @@ as String,
 
 
 class Success implements PhoneAuthState {
-  const Success({this.verificationId = ""});
+  const Success();
   
 
-@JsonKey() final  String verificationId;
 
-/// Create a copy of PhoneAuthState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.verificationId, verificationId) || other.verificationId == verificationId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,verificationId);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PhoneAuthState.success(verificationId: $verificationId)';
+  return 'PhoneAuthState.success()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $SuccessCopyWith<$Res> implements $PhoneAuthStateCopyWith<$Res> {
-  factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
-@useResult
-$Res call({
- String verificationId
-});
 
 
-
-
-}
-/// @nodoc
-class _$SuccessCopyWithImpl<$Res>
-    implements $SuccessCopyWith<$Res> {
-  _$SuccessCopyWithImpl(this._self, this._then);
-
-  final Success _self;
-  final $Res Function(Success) _then;
-
-/// Create a copy of PhoneAuthState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? verificationId = null,}) {
-  return _then(Success(
-verificationId: null == verificationId ? _self.verificationId : verificationId // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
 
 // dart format on
