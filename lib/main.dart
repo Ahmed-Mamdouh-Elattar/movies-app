@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/config/app_theme.dart';
 import 'package:movies_app/core/routing/app_router.dart';
 import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
 import 'package:movies_app/firebase_options.dart';
 import 'package:movies_app/simple_bloc_observer.dart';
 
@@ -12,7 +13,12 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = SimpleBlocObserver();
   setUpServiceLocator();
-  runApp(const MoviesApp());
+  runApp(
+    BlocProvider(
+      create: (context) => getIt.get<AuthCubit>(),
+      child: const MoviesApp(),
+    ),
+  );
 }
 
 class MoviesApp extends StatelessWidget {
