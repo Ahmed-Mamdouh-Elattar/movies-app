@@ -2,19 +2,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/routing/page_name.dart';
 import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit/social_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/pages/login_page.dart';
 import 'package:movies_app/features/auth/presentation/pages/phone_auth_page.dart';
 
 import 'package:movies_app/features/auth/presentation/pages/register_page.dart';
+import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
 import 'package:movies_app/features/splash_screen/presentation/pages/splash_page.dart';
 
 final appRouter = GoRouter(
+  initialLocation: PageName.splash,
+  redirect: (context, state) {
+    final authCubit = context.read<AuthCubit>();
+
+    if (authCubit.state is Authenticated) {
+      return PageName.home;
+    } else if (authCubit.state is Unauthenticated) {
+      return PageName.login;
+    }
+    return null;
+  },
   routes: [
     GoRoute(
       path: PageName.splash,
-      builder: (context, state) => const SplashPage(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt.get<SplashCubit>(),
+        child: const SplashPage(),
+      ),
     ),
     ShellRoute(
       builder: (context, state, child) => BlocProvider(
