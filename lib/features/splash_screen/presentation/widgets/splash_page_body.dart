@@ -2,10 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:movies_app/core/config/app_text_style.dart';
 import 'package:movies_app/core/helper/assets.dart';
 import 'package:movies_app/core/routing/page_name.dart';
+import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
+import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
 
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});
@@ -68,7 +72,7 @@ class _SplashPageBodyState extends State<SplashPageBody>
       _textAnimationController.forward().whenComplete(() {
         Future.delayed(const Duration(milliseconds: 800), () {
           if (mounted) {
-            context.go(PageName.login);
+            context.read<SplashCubit>().splashFinished();
           }
         });
       });
@@ -77,14 +81,34 @@ class _SplashPageBodyState extends State<SplashPageBody>
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildAnimatedImage(),
-          const SizedBox(height: 10),
-          _buildAnimatedText(),
-        ],
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SplashCubit, bool>(
+          listener: (context, state) {
+            if (state) {
+              context.read<AuthCubit>().getAuthState();
+              context.go(PageName.login);
+            }
+          },
+        ),
+        BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              authenticated: (user) => context.go(PageName.home),
+              unauthenticated: () => context.go(PageName.login),
+            );
+          },
+        ),
+      ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildAnimatedImage(),
+            const SizedBox(height: 10),
+            _buildAnimatedText(),
+          ],
+        ),
       ),
     );
   }
