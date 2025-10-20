@@ -87,7 +87,6 @@ class _SplashPageBodyState extends State<SplashPageBody>
           listener: (context, state) {
             if (state) {
               context.read<AuthCubit>().getAuthState();
-              context.go(PageName.login);
             }
           },
         ),
