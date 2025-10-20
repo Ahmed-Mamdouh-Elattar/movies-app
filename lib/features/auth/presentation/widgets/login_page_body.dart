@@ -24,7 +24,7 @@ class LoginPageBody extends StatelessWidget {
           case Loading():
             break;
           case Success():
-            context.push(PageName.home);
+            context.go(PageName.home);
 
             break;
         }
@@ -53,8 +53,8 @@ class LoginPageBody extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomElevatedButton(
-              onPressed: () {
-                context.push(PageName.phoneAuth);
+              onPressed: () async {
+                await context.push(PageName.phoneAuth);
               },
               icon: Icons.phone,
               label: 'Login with Phone Number',
@@ -70,8 +70,8 @@ class LoginPageBody extends StatelessWidget {
                   ).copyWith(color: Colors.white),
                 ),
                 TextButton(
-                  onPressed: () {
-                    context.push(PageName.register);
+                  onPressed: () async {
+                    await context.push(PageName.register);
                   },
                   child: Text(
                     'Sign up',

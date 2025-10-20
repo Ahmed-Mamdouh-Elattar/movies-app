@@ -24,7 +24,8 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     switch (result) {
       case ResultSuccess<String>(:final data):
         verificationId = data;
-        emit(const PhoneAuthState.success());
+        emit(const PhoneAuthState.initial());
+        break;
       case ResultFailure<String>(:final message):
         emit(PhoneAuthState.failure(message));
     }

@@ -51,7 +51,9 @@ class RegisterPageBody extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await context.push(PageName.phoneAuth);
+              },
               icon: Icons.phone,
               label: 'Register with Phone Number',
             ),
