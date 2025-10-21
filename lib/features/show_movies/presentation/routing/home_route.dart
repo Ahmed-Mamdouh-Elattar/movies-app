@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/routing/page_name.dart';
+import 'package:movies_app/features/show_movies/presentation/pages/details_page.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/home_page.dart';
 
 final homeRoute = ShellRoute(
@@ -31,4 +32,8 @@ final homeRoute = ShellRoute(
   routes: [
     GoRoute(path: PageName.home, builder: (context, state) => const HomePage()),
   ],
+);
+final detailsRoute = GoRoute(
+  path: PageName.details,
+  builder: (context, state) => const DetailsPage(),
 );

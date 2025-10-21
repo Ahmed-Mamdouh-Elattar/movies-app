@@ -1,17 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/helper/constants.dart';
+import 'package:movies_app/core/routing/page_name.dart';
 
 class TopMoviesList extends StatelessWidget {
   const TopMoviesList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, index) => const SizedBox(width: kPadding),
       scrollDirection: Axis.horizontal,
+
       itemCount: 10,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.only(right: kPadding),
+      itemBuilder: (context, index) => InkWell(
+        onTap: () => context.push(PageName.details),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: AspectRatio(

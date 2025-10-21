@@ -5,6 +5,7 @@ import 'package:movies_app/core/config/app_text_style.dart';
 class AppTheme {
   static ThemeData appTheme(BuildContext context) {
     return ThemeData(
+      brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColor.primary,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColor.primary,

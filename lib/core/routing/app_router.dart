@@ -21,5 +21,5 @@ final appRouter = GoRouter(
     }
     return null;
   },
-  routes: [splashRouter, authRouter, homeRoute],
+  routes: [splashRouter, authRouter, homeRoute, detailsRoute],
 );
