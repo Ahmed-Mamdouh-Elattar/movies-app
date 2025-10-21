@@ -4,6 +4,7 @@ import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 
 class GoogleAuthRepoImp implements SocialAuthRepo {
   @override
@@ -30,41 +31,49 @@ class GoogleAuthRepoImp implements SocialAuthRepo {
       );
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
-        return const Result.failure("Signing process was canceled.");
+        return const Result.failure(Failure("Signing process was canceled."));
       } else if (e.code == GoogleSignInExceptionCode.clientConfigurationError) {
         return const Result.failure(
-          "Signing failed. Please contact support (Client configuration error).",
+          Failure("Signing failed. Please contact support."),
         );
       } else if (e.code ==
           GoogleSignInExceptionCode.providerConfigurationError) {
         return const Result.failure(
-          "Signing failed due to a server configuration issue. Please try again later.",
+          Failure(
+            "Signing failed due to a server configuration issue. Please try again later.",
+          ),
         );
       } else if (e.code == GoogleSignInExceptionCode.uiUnavailable) {
         return const Result.failure(
-          "Could not display the signing screen. Please try again.",
+          Failure("Could not display the signing screen. Please try again."),
         );
       } else if (e.code == GoogleSignInExceptionCode.unknownError) {
         return const Result.failure(
-          "An unknown error occurred during signing. Please try again.",
+          Failure(
+            "An unknown error occurred during signing. Please try again.",
+          ),
         );
       } else if (e.code == GoogleSignInExceptionCode.userMismatch) {
         return const Result.failure(
-          "The signing user does not match the expected user. Please try again with the correct account.",
+          Failure(
+            "The signing user does not match the expected user. Please try again with the correct account.",
+          ),
         );
       } else if (e.code == GoogleSignInExceptionCode.interrupted) {
         return const Result.failure(
-          "The signig process was interrupted. Please try again.",
+          Failure("The signig process was interrupted. Please try again."),
         );
       } else {
         return const Result.failure(
-          "An unexpected error occurred during signing. Please try again later.",
+          Failure(
+            "An unexpected error occurred during signing. Please try again later.",
+          ),
         );
       }
     } on Exception catch (e) {
       log(e.toString());
       return const Result.failure(
-        "An unexpected error occurred. Please try again later.",
+        Failure("An unexpected error occurred. Please try again later."),
       );
     }
   }

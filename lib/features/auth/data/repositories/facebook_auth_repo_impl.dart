@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
+import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 
 class FacebookAuthRepoImpl implements SocialAuthRepo {
   @override
@@ -18,13 +19,17 @@ class FacebookAuthRepoImpl implements SocialAuthRepo {
         loginResult.accessToken!.tokenString,
       );
     } else if (loginResult.status == LoginStatus.cancelled) {
-      return const Result.failure("Signing process was canceled.");
+      return const Result.failure(Failure("Signing process was canceled."));
     } else if (loginResult.status == LoginStatus.failed) {
-      return const Result.failure("Signing failed.");
+      return const Result.failure(Failure("Signing process failed."));
     } else if (loginResult.status == LoginStatus.operationInProgress) {
-      return const Result.failure("Signing process is in progress.");
+      return const Result.failure(Failure("Signing process is in progress."));
     } else {
-      return const Result.failure("Unknown error occurred.");
+      return const Result.failure(
+        Failure(
+          "An unexpected error occurred during signing. Please try again later.",
+        ),
+      );
     }
 
     // Once signed in, return the UserCredential

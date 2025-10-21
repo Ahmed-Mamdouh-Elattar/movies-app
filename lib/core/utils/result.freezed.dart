@@ -119,11 +119,11 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T data)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T data)?  success,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ResultSuccess() when success != null:
 return success(_that.data);case ResultFailure() when failure != null:
-return failure(_that.message);case _:
+return failure(_that.failure);case _:
   return orElse();
 
 }
@@ -141,11 +141,11 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T data)  success,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T data)  success,required TResult Function( Failure failure)  failure,}) {final _that = this;
 switch (_that) {
 case ResultSuccess():
 return success(_that.data);case ResultFailure():
-return failure(_that.message);}
+return failure(_that.failure);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +159,11 @@ return failure(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T data)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T data)?  success,TResult? Function( Failure failure)?  failure,}) {final _that = this;
 switch (_that) {
 case ResultSuccess() when success != null:
 return success(_that.data);case ResultFailure() when failure != null:
-return failure(_that.message);case _:
+return failure(_that.failure);case _:
   return null;
 
 }
@@ -241,10 +241,10 @@ as T,
 
 
 class ResultFailure<T> implements Result<T> {
-  const ResultFailure(this.message);
+  const ResultFailure(this.failure);
   
 
- final  String message;
+ final  Failure failure;
 
 /// Create a copy of Result
 /// with the given fields replaced by the non-null parameter values.
@@ -256,16 +256,16 @@ $ResultFailureCopyWith<T, ResultFailure<T>> get copyWith => _$ResultFailureCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResultFailure<T>&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResultFailure<T>&&const DeepCollectionEquality().equals(other.failure, failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,message);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(failure));
 
 @override
 String toString() {
-  return 'Result<$T>.failure(message: $message)';
+  return 'Result<$T>.failure(failure: $failure)';
 }
 
 
@@ -276,7 +276,7 @@ abstract mixin class $ResultFailureCopyWith<T,$Res> implements $ResultCopyWith<T
   factory $ResultFailureCopyWith(ResultFailure<T> value, $Res Function(ResultFailure<T>) _then) = _$ResultFailureCopyWithImpl;
 @useResult
 $Res call({
- String message
+ Failure failure
 });
 
 
@@ -293,10 +293,10 @@ class _$ResultFailureCopyWithImpl<T,$Res>
 
 /// Create a copy of Result
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? failure = freezed,}) {
   return _then(ResultFailure<T>(
-null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,
+freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
+as Failure,
   ));
 }
 
