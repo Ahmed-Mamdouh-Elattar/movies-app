@@ -1,0 +1,31 @@
+import 'package:movies_app/features/show_movies/data/models/movies_model/movie_results.dart';
+
+class MoviesModel {
+  int page;
+  List<MoviesResults> results;
+  int totalPages;
+  int totalResults;
+
+  MoviesModel({
+    required this.page,
+    required this.results,
+    required this.totalPages,
+    required this.totalResults,
+  });
+
+  factory MoviesModel.fromJson(Map<String, dynamic> json) => MoviesModel(
+    page: json["page"],
+    results: List<MoviesResults>.from(
+      json["results"].map((x) => MoviesResults.fromJson(x)),
+    ),
+    totalPages: json["total_pages"],
+    totalResults: json["total_results"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "page": page,
+    "results": List<dynamic>.from(results.map((x) => x.toJson())),
+    "total_pages": totalPages,
+    "total_results": totalResults,
+  };
+}
