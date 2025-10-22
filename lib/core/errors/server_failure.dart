@@ -2,37 +2,37 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/core/errors/failures.dart';
 
 class ServerFailure extends Failures {
-  ServerFailure({required super.errMessage});
+  const ServerFailure({required super.errMessage});
   factory ServerFailure.fromDioError(DioException dioException) {
     switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Connection timeout with API server,please try again",
         );
       case DioExceptionType.sendTimeout:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Send timeout with API server,please try again",
         );
       case DioExceptionType.receiveTimeout:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Receive timeout with API server,please try again",
         );
       case DioExceptionType.badCertificate:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "bad certificate with API server,please try again",
         );
       case DioExceptionType.badResponse:
         return ServerFailure.badResponseError(dioException);
       case DioExceptionType.cancel:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Request is canceled,please try again",
         );
       case DioExceptionType.connectionError:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Check your internet connection and try again",
         );
       case DioExceptionType.unknown:
-        return ServerFailure(
+        return const ServerFailure(
           errMessage: "Oops there was an error,please try again",
         );
     }
@@ -46,13 +46,15 @@ class ServerFailure extends Failures {
         errMessage: dioException.response!.data["error"]["message"],
       );
     } else if (dioException.response!.statusCode == 404) {
-      return ServerFailure(
+      return const ServerFailure(
         errMessage: "Your request not found , please try later!",
       );
     } else if (dioException.response!.statusCode == 500) {
-      return ServerFailure(errMessage: "Internal Server error , try later!");
+      return const ServerFailure(
+        errMessage: "Internal Server error , try later!",
+      );
     } else {
-      return ServerFailure(
+      return const ServerFailure(
         errMessage: "Oops there was an error,please try again",
       );
     }

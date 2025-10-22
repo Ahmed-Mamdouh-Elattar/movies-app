@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/auth/domain/repositories/phone_auth_repo.dart';
-import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 
 class PhoneAuthRepoImpl implements PhoneAuthRepo {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,7 +33,7 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
       String verificationId = await completer.future;
       return Result.success(verificationId);
     } catch (e) {
-      return Result.failure(Failure(e.toString()));
+      return Result.failure(Failures(errMessage: e.toString()));
     }
   }
 
@@ -51,9 +51,11 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
       await _auth.signInWithCredential(credential);
       return const Result.success("Success");
     } on FirebaseAuthException catch (e) {
-      return Result.failure(Failure(e.message ?? "Something went wrong"));
+      return Result.failure(
+        Failures(errMessage: e.message ?? "Something went wrong"),
+      );
     } catch (e) {
-      return Result.failure(Failure(e.toString()));
+      return Result.failure(Failures(errMessage: e.toString()));
     }
   }
 }

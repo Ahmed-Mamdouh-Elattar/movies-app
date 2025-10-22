@@ -23,7 +23,7 @@ class SocialAuthCubit extends Cubit<SocialAuthState> {
         emit(SocialAuthState.success(data));
         break;
       case ResultFailure(:final failure):
-        emit(SocialAuthState.failure(failure.message));
+        emit(SocialAuthState.failure(failure.errMessage));
         break;
     }
   }
@@ -37,7 +37,7 @@ class SocialAuthCubit extends Cubit<SocialAuthState> {
         emit(SocialAuthState.success(data));
         break;
       case ResultFailure(:final failure):
-        emit(SocialAuthState.failure(failure.message));
+        emit(SocialAuthState.failure(failure.errMessage));
         break;
     }
   }
