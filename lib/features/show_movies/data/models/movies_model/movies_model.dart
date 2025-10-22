@@ -1,4 +1,6 @@
+import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/features/show_movies/data/models/movies_model/movie_results.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 
 class MoviesModel {
   int page;
@@ -28,4 +30,10 @@ class MoviesModel {
     "total_pages": totalPages,
     "total_results": totalResults,
   };
+
+  List<MoviesEntity> toEntity() => results
+      .map(
+        (e) => MoviesEntity(id: e.id, poster: "$kBaseImageURL${e.posterPath}"),
+      )
+      .toList();
 }
