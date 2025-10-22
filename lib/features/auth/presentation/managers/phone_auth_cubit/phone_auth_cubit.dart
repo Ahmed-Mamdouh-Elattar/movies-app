@@ -27,7 +27,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
         emit(const PhoneAuthState.initial());
         break;
       case ResultFailure<String>(:final failure):
-        emit(PhoneAuthState.failure(failure.message));
+        emit(PhoneAuthState.failure(failure.errMessage));
     }
   }
 
@@ -39,7 +39,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
         case ResultSuccess<String>():
           emit(const PhoneAuthState.success());
         case ResultFailure<String>(:final failure):
-          emit(PhoneAuthState.failure(failure.message));
+          emit(PhoneAuthState.failure(failure.errMessage));
       }
     } else {
       emit(const PhoneAuthState.failure("Check the number and send SMS again"));
