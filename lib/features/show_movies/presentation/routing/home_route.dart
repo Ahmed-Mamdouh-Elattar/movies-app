@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/config/app_color.dart';
+import 'package:movies_app/core/enums/movie_category_enum.dart';
 import 'package:movies_app/core/routing/page_name.dart';
+import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/movies_cubit/movies_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/details_page.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/home_page.dart';
 
@@ -30,7 +34,15 @@ final homeRoute = ShellRoute(
   },
 
   routes: [
-    GoRoute(path: PageName.home, builder: (context, state) => const HomePage()),
+    GoRoute(
+      path: PageName.home,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            getIt<MoviesCubit>()
+              ..getMoviesByCategory(category: MovieCategory.topRated.value),
+        child: const HomePage(),
+      ),
+    ),
   ],
 );
 final detailsRoute = GoRoute(
