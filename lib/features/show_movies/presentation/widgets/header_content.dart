@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/search_text_field.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/top_movies_list.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/top_movies_list_builder.dart';
 
 class HeaderContent extends StatelessWidget {
   const HeaderContent({super.key});
@@ -18,7 +18,7 @@ class HeaderContent extends StatelessWidget {
         SizedBox(height: 24),
         Padding(
           padding: EdgeInsets.only(left: kPadding),
-          child: SizedBox(height: 210, child: TopMoviesList()),
+          child: SizedBox(height: 210, child: TopMoviesListBuilder()),
         ),
       ],
     );
