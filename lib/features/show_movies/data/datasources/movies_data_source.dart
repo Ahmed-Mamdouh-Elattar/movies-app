@@ -21,8 +21,8 @@ class MoviesDataSourceImpl implements MoviesDataSource {
         category: category,
         page: page,
       );
-    } on Exception catch (e) {
-      throw Exception(e);
+    } on Exception {
+      rethrow;
     }
   }
 }

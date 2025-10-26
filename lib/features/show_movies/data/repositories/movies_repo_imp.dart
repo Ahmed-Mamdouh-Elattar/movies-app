@@ -22,8 +22,8 @@ class MoviesRepoImp implements MoviesRepo {
       return Result.success(result.toEntity());
     } on DioException catch (e) {
       return Result.failure(ServerFailure.fromDioError(e));
-    } on Exception {
-      return const Result.failure(Failures(errMessage: "Unexpected error"));
+    } on Exception catch (e) {
+      return Result.failure(Failures(errMessage: e.toString()));
     }
   }
 }
