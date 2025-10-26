@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movies_app/core/networking/dio/dio_object.dart';
+import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
+import 'package:movies_app/core/networking/network_info/network_info.dart';
 import 'package:movies_app/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:movies_app/features/auth/data/repositories/facebook_auth_repo_impl.dart';
 import 'package:movies_app/features/auth/data/repositories/google_auth_repo_imp.dart';
@@ -13,6 +17,11 @@ import 'package:movies_app/features/auth/domain/usecases/verify_code_use_case.da
 import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit/social_auth_cubit.dart';
+import 'package:movies_app/features/show_movies/data/datasources/api_service.dart';
+import 'package:movies_app/features/show_movies/data/datasources/movies_data_source.dart';
+import 'package:movies_app/features/show_movies/data/repositories/movies_repo_imp.dart';
+import 'package:movies_app/features/show_movies/domain/usecases/get_movies_by_category_use_case.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/movies_cubit/movies_cubit.dart';
 import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
 
 final getIt = GetIt.instance;
@@ -59,4 +68,20 @@ void setUpServiceLocator() {
     () => AuthCubit(getIt<GetAuthStateUseCase>(), getIt<SignOutUseCase>()),
   );
   getIt.registerFactory(() => SplashCubit());
+  getIt.registerLazySingleton<Dio>(() => createDio());
+  getIt.registerLazySingleton<ApiService>(() => ApiService(getIt.get<Dio>()));
+  getIt.registerLazySingleton<MoviesDataSourceImpl>(
+    () => MoviesDataSourceImpl(getIt.get<ApiService>()),
+  );
+  getIt.registerLazySingleton<MoviesRepoImp>(
+    () => MoviesRepoImp(getIt.get<MoviesDataSourceImpl>()),
+  );
+  getIt.registerLazySingleton<GetMoviesByCategoryUseCase>(
+    () => GetMoviesByCategoryUseCase(getIt.get<MoviesRepoImp>()),
+  );
+  getIt.registerFactory<MoviesCubit>(
+    () => MoviesCubit(getIt.get<GetMoviesByCategoryUseCase>()),
+  );
+  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfo());
+  getIt.registerFactory(() => NetworkCubit(getIt.get<NetworkInfo>()));
 }
