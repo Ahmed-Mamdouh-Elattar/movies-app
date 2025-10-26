@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/core/networking/dio/api_key_ineterceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-Dio createDio(String baseUrl, {String? token}) {
+Dio createDio({String? baseUrl, String? token}) {
   final dio = Dio(
     BaseOptions(
-      baseUrl: baseUrl,
+      baseUrl: baseUrl ?? "",
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {'Accept': 'application/json'},
