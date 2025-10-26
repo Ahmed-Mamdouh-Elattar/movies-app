@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/config/app_theme.dart';
+import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/core/routing/app_router.dart';
 import 'package:movies_app/core/services/service_locator.dart';
 import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
@@ -26,10 +27,13 @@ class MoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
-      theme: AppTheme.appTheme(context),
-      debugShowCheckedModeBanner: false,
+    return BlocProvider(
+      create: (context) => getIt.get<NetworkCubit>(),
+      child: MaterialApp.router(
+        routerConfig: appRouter,
+        theme: AppTheme.appTheme(context),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
