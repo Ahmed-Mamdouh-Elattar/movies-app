@@ -2,17 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movies_app/core/enums/movie_category_enum.dart';
 import 'package:movies_app/core/helper/assets.dart';
 import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/core/helper/custom_cash_manager.dart';
 import 'package:movies_app/core/routing/page_name.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
-import 'package:movies_app/features/show_movies/presentation/managers/movies_cubit/movies_cubit.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class TopMoviesList extends StatefulWidget {
-  const TopMoviesList({
+class RandomMoviesList extends StatefulWidget {
+  const RandomMoviesList({
     required this.movies,
     required this.isLoading,
     super.key,
@@ -22,22 +21,26 @@ class TopMoviesList extends StatefulWidget {
   final bool isLoading;
 
   @override
-  State<TopMoviesList> createState() => _TopMoviesListState();
+  State<RandomMoviesList> createState() => _RandomMoviesListState();
 }
 
-class _TopMoviesListState extends State<TopMoviesList> {
+class _RandomMoviesListState extends State<RandomMoviesList> {
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent - 200) {
-        context.read<MoviesCubit>().getMoviesByCategory(
-          category: MovieCategory.topRated.value,
-        );
+        context.read<RandomMoviesCubit>().getRandomMovies();
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,7 +92,7 @@ class _TopMoviesListState extends State<TopMoviesList> {
               },
             ),
           ),
-          BlocBuilder<MoviesCubit, MoviesState>(
+          BlocBuilder<RandomMoviesCubit, RandomMoviesState>(
             builder: (context, state) {
               if (state is LoadingMore) {
                 return const Row(
