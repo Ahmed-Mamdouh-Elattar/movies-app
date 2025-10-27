@@ -14,4 +14,10 @@ abstract class ApiService {
     @Query("page") required int page,
     @Query("language") String language = "en-US",
   });
+
+  @GET("discover/movie")
+  Future<MoviesModel> getRandomeMovies({
+    @Query("page") required int page,
+    @Query("language") String language = "en-US",
+  });
 }
