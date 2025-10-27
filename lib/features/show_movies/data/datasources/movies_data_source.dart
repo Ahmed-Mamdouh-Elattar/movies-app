@@ -6,6 +6,7 @@ abstract class MoviesDataSource {
     required String category,
     required int page,
   });
+  Future<MoviesModel> getRandomeMovies({required int page});
 }
 
 class MoviesDataSourceImpl implements MoviesDataSource {
@@ -21,6 +22,15 @@ class MoviesDataSourceImpl implements MoviesDataSource {
         category: category,
         page: page,
       );
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<MoviesModel> getRandomeMovies({required int page}) async {
+    try {
+      return await _apiService.getRandomeMovies(page: page);
     } on Exception {
       rethrow;
     }
