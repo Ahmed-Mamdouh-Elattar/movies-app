@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/config/app_text_style.dart';
 import 'package:movies_app/core/config/app_color.dart';
+import 'package:movies_app/core/enums/movie_category_enum.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/header_content.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/movies_grid_view.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/movies_grid_view_bulider.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/movies_tab_bar.dart';
 
 class HomePageBody extends StatelessWidget {
@@ -32,10 +33,12 @@ class HomePageBody extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  MoviesGridView(),
-                  Center(child: Text('Upcoming Movies')),
-                  Center(child: Text('Top Rated Movies')),
-                  Center(child: Text('Popular Movies')),
+                  MoviesGridViewBuilder(
+                    movieCategory: MovieCategory.nowPlaying,
+                  ),
+                  MoviesGridViewBuilder(movieCategory: MovieCategory.upcoming),
+                  MoviesGridViewBuilder(movieCategory: MovieCategory.topRated),
+                  MoviesGridViewBuilder(movieCategory: MovieCategory.popular),
                 ],
               ),
             ),

@@ -3,7 +3,7 @@ import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/config/app_text_style.dart';
 import 'package:movies_app/core/helper/constants.dart';
 
-class MoviesTabBar extends StatelessWidget implements PreferredSizeWidget{
+class MoviesTabBar extends StatelessWidget implements PreferredSizeWidget {
   const MoviesTabBar({super.key});
 
   @override
@@ -28,7 +28,7 @@ class MoviesTabBar extends StatelessWidget implements PreferredSizeWidget{
       ],
     );
   }
-  
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
