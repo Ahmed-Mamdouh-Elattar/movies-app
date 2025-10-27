@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'movies_cubit.dart';
+part of 'movies_category_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'movies_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MoviesState {
+mixin _$MoviesCategoryState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$MoviesState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MoviesState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MoviesCategoryState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MoviesState()';
+  return 'MoviesCategoryState()';
 }
 
 
 }
 
 /// @nodoc
-class $MoviesStateCopyWith<$Res>  {
-$MoviesStateCopyWith(MoviesState _, $Res Function(MoviesState) __);
+class $MoviesCategoryStateCopyWith<$Res>  {
+$MoviesCategoryStateCopyWith(MoviesCategoryState _, $Res Function(MoviesCategoryState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [MoviesState].
-extension MoviesStatePatterns on MoviesState {
+/// Adds pattern-matching-related methods to [MoviesCategoryState].
+extension MoviesCategoryStatePatterns on MoviesCategoryState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -198,7 +198,7 @@ return failure(_that.errMessage);case _:
 /// @nodoc
 
 
-class Initial implements MoviesState {
+class Initial implements MoviesCategoryState {
   const Initial();
   
 
@@ -218,7 +218,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MoviesState.initial()';
+  return 'MoviesCategoryState.initial()';
 }
 
 
@@ -230,7 +230,7 @@ String toString() {
 /// @nodoc
 
 
-class Loading implements MoviesState {
+class Loading implements MoviesCategoryState {
   const Loading();
   
 
@@ -250,7 +250,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MoviesState.loading()';
+  return 'MoviesCategoryState.loading()';
 }
 
 
@@ -262,7 +262,7 @@ String toString() {
 /// @nodoc
 
 
-class LoadingMore implements MoviesState {
+class LoadingMore implements MoviesCategoryState {
   const LoadingMore();
   
 
@@ -282,7 +282,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MoviesState.loadingMore()';
+  return 'MoviesCategoryState.loadingMore()';
 }
 
 
@@ -294,7 +294,7 @@ String toString() {
 /// @nodoc
 
 
-class Loaded implements MoviesState {
+class Loaded implements MoviesCategoryState {
   const Loaded(final  List<MoviesEntity> movies): _movies = movies;
   
 
@@ -306,7 +306,7 @@ class Loaded implements MoviesState {
 }
 
 
-/// Create a copy of MoviesState
+/// Create a copy of MoviesCategoryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -325,14 +325,14 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'MoviesState.loaded(movies: $movies)';
+  return 'MoviesCategoryState.loaded(movies: $movies)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $LoadedCopyWith<$Res> implements $MoviesStateCopyWith<$Res> {
+abstract mixin class $LoadedCopyWith<$Res> implements $MoviesCategoryStateCopyWith<$Res> {
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
@@ -351,7 +351,7 @@ class _$LoadedCopyWithImpl<$Res>
   final Loaded _self;
   final $Res Function(Loaded) _then;
 
-/// Create a copy of MoviesState
+/// Create a copy of MoviesCategoryState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? movies = null,}) {
   return _then(Loaded(
@@ -366,13 +366,13 @@ as List<MoviesEntity>,
 /// @nodoc
 
 
-class Failure implements MoviesState {
+class Failure implements MoviesCategoryState {
   const Failure(this.errMessage);
   
 
  final  String errMessage;
 
-/// Create a copy of MoviesState
+/// Create a copy of MoviesCategoryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -391,14 +391,14 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'MoviesState.failure(errMessage: $errMessage)';
+  return 'MoviesCategoryState.failure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $FailureCopyWith<$Res> implements $MoviesStateCopyWith<$Res> {
+abstract mixin class $FailureCopyWith<$Res> implements $MoviesCategoryStateCopyWith<$Res> {
   factory $FailureCopyWith(Failure value, $Res Function(Failure) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
@@ -417,7 +417,7 @@ class _$FailureCopyWithImpl<$Res>
   final Failure _self;
   final $Res Function(Failure) _then;
 
-/// Create a copy of MoviesState
+/// Create a copy of MoviesCategoryState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
   return _then(Failure(

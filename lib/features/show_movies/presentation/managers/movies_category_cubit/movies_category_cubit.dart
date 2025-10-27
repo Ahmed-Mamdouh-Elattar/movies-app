@@ -4,13 +4,14 @@ import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_movies_by_category_use_case.dart';
 
-part 'movies_state.dart';
-part 'movies_cubit.freezed.dart';
+part 'movies_category_state.dart';
+part 'movies_category_cubit.freezed.dart';
 
-class MoviesCubit extends Cubit<MoviesState> {
-  MoviesCubit(this._getMoviesByCategoryUseCase)
-    : super(const MoviesState.initial());
+class MoviesCategoryCubit extends Cubit<MoviesCategoryState> {
+  MoviesCategoryCubit(this._getMoviesByCategoryUseCase)
+    : super(const MoviesCategoryState.initial());
   final GetMoviesByCategoryUseCase _getMoviesByCategoryUseCase;
+
   int _page = 1;
 
   bool _hasMore = true;
@@ -21,8 +22,8 @@ class MoviesCubit extends Cubit<MoviesState> {
       return;
     }
     _page == 1
-        ? emit(const MoviesState.loading())
-        : emit(const MoviesState.loadingMore());
+        ? emit(const MoviesCategoryState.loading())
+        : emit(const MoviesCategoryState.loadingMore());
 
     final result = await _getMoviesByCategoryUseCase.call(
       category: category,
@@ -40,14 +41,20 @@ class MoviesCubit extends Cubit<MoviesState> {
               )
               .toList();
           _moveies.addAll(newMovies);
-          emit(MoviesState.loaded(_moveies));
+          emit(MoviesCategoryState.loaded(_moveies));
         }
 
         _page++;
       },
       failure: (failure) {
-        emit(MoviesState.failure(failure.errMessage));
+        emit(MoviesCategoryState.failure(failure.errMessage));
       },
     );
+  }
+
+  void reset() {
+    _page = 1;
+    _hasMore = true;
+    _moveies.clear();
   }
 }
