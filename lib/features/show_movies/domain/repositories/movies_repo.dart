@@ -6,4 +6,5 @@ abstract class MoviesRepo {
     required String category,
     required int page,
   });
+  Future<Result<List<MoviesEntity>>> getRandomeMovies({required int page});
 }

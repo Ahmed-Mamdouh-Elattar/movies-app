@@ -26,4 +26,18 @@ class MoviesRepoImp implements MoviesRepo {
       return Result.failure(Failures(errMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Result<List<MoviesEntity>>> getRandomeMovies({
+    required int page,
+  }) async {
+    try {
+      final result = await _moviesDataSource.getRandomeMovies(page: page);
+      return Result.success(result.toEntity());
+    } on DioException catch (e) {
+      return Result.failure(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
+      return Result.failure(Failures(errMessage: e.toString()));
+    }
+  }
 }
