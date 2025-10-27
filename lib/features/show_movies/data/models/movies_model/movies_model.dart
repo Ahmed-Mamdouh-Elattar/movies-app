@@ -33,7 +33,10 @@ class MoviesModel {
 
   List<MoviesEntity> toEntity() => results
       .map(
-        (e) => MoviesEntity(id: e.id, poster: "$kBaseImageURL${e.posterPath}"),
+        (e) => MoviesEntity(
+          id: e.id ?? 0,
+          poster: "$kBaseImageURL${e.posterPath}",
+        ),
       )
       .toList();
 }
