@@ -1,4 +1,5 @@
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/result.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movie_reviews_entity.dart';
 
 class MovieReviewsModel {
   final int? id;
@@ -37,4 +38,15 @@ class MovieReviewsModel {
     "total_pages": totalPages,
     "total_results": totalResults,
   };
+  List<MovieReviewsEntity> toEntity() {
+    return results!
+        .map(
+          (e) => MovieReviewsEntity(
+            author: e.author!,
+            avatar: e.authorDetails!.avatarPath ?? "",
+            content: e.content!,
+          ),
+        )
+        .toList();
+  }
 }

@@ -1,7 +1,9 @@
+import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/genre.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/production_company.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/production_country.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/spoken_language.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movie_details_entity.dart';
 
 class MovieDetailsModel {
   final bool? adult;
@@ -153,4 +155,16 @@ class MovieDetailsModel {
     "vote_average": voteAverage,
     "vote_count": voteCount,
   };
+  MovieDetailsEntity toEntity() {
+    return MovieDetailsEntity(
+      poster: "$kBaseImageURL${posterPath!}",
+      backDrop: "$kBaseImageURL${backdropPath!}",
+      title: title!,
+      voting: voteAverage!,
+      duration: runtime.toString(),
+      date: releaseDate.toString(),
+      overview: overview!,
+      genres: genres!.map((e) => e.name!).toList(),
+    );
+  }
 }
