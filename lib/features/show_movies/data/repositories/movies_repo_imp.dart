@@ -3,6 +3,9 @@ import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/errors/server_failure.dart';
 import 'package:movies_app/core/utils/result.dart';
 import 'package:movies_app/features/show_movies/data/datasources/movies_data_source.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movie_cast_entity.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/features/show_movies/domain/entities/movie_reviews_entity.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 import 'package:movies_app/features/show_movies/domain/repositories/movies_repo.dart';
 
@@ -33,6 +36,48 @@ class MoviesRepoImp implements MoviesRepo {
   }) async {
     try {
       final result = await _moviesDataSource.getRandomeMovies(page: page);
+      return Result.success(result.toEntity());
+    } on DioException catch (e) {
+      return Result.failure(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
+      return Result.failure(Failures(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Result<List<MovieCastEntity>>> getMovieCast({
+    required int movieId,
+  }) async {
+    try {
+      final result = await _moviesDataSource.getMovieCast(movieId: movieId);
+      return Result.success(result.toEntity());
+    } on DioException catch (e) {
+      return Result.failure(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
+      return Result.failure(Failures(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Result<MovieDetailsEntity>> getMovieDetails({
+    required int movieId,
+  }) async {
+    try {
+      final result = await _moviesDataSource.getMovieDetails(movieId: movieId);
+      return Result.success(result.toEntity());
+    } on DioException catch (e) {
+      return Result.failure(ServerFailure.fromDioError(e));
+    } on Exception catch (e) {
+      return Result.failure(Failures(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Result<List<MovieReviewsEntity>>> getMovieReviews({
+    required int movieId,
+  }) async {
+    try {
+      final result = await _moviesDataSource.getMovieReviews(movieId: movieId);
       return Result.success(result.toEntity());
     } on DioException catch (e) {
       return Result.failure(ServerFailure.fromDioError(e));
