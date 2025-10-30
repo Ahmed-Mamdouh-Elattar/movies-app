@@ -20,8 +20,12 @@ import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit
 import 'package:movies_app/features/show_movies/data/datasources/api_service.dart';
 import 'package:movies_app/features/show_movies/data/datasources/movies_data_source.dart';
 import 'package:movies_app/features/show_movies/data/repositories/movies_repo_imp.dart';
+import 'package:movies_app/features/show_movies/domain/usecases/get_movie_cast_use_case.dart';
+import 'package:movies_app/features/show_movies/domain/usecases/get_movie_details_use_case.dart';
+import 'package:movies_app/features/show_movies/domain/usecases/get_movie_reviews_use_case.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_movies_by_category_use_case.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_random_movies_use_case.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
@@ -92,4 +96,20 @@ void setUpServiceLocator() {
   );
   getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfo());
   getIt.registerFactory(() => NetworkCubit(getIt.get<NetworkInfo>()));
+  getIt.registerLazySingleton<GetMovieDetailsUseCase>(
+    () => GetMovieDetailsUseCase(getIt.get<MoviesRepoImp>()),
+  );
+  getIt.registerLazySingleton<GetMovieCastUseCase>(
+    () => GetMovieCastUseCase(getIt.get<MoviesRepoImp>()),
+  );
+  getIt.registerLazySingleton<GetMovieReviewsUseCase>(
+    () => GetMovieReviewsUseCase(getIt.get<MoviesRepoImp>()),
+  );
+  getIt.registerFactory<MovieDetailsCubit>(
+    () => MovieDetailsCubit(
+      getIt.get<GetMovieDetailsUseCase>(),
+      getIt.get<GetMovieCastUseCase>(),
+      getIt.get<GetMovieReviewsUseCase>(),
+    ),
+  );
 }
