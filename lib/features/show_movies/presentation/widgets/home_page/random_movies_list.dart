@@ -1,13 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movies_app/core/helper/assets.dart';
 import 'package:movies_app/core/helper/constants.dart';
-import 'package:movies_app/core/helper/custom_cash_manager.dart';
 import 'package:movies_app/core/routing/page_name.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/home_page/random_movies_list_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class RandomMoviesList extends StatefulWidget {
@@ -67,30 +65,7 @@ class _RandomMoviesListState extends State<RandomMoviesList> {
                           PageName.details,
                           extra: movie?.id ?? 0,
                         ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: AspectRatio(
-                      aspectRatio: 144.61 / 210,
-                      child: movie == null
-                          ? Image.asset(
-                              Assets.iconsPopcorn,
-                              fit: BoxFit.cover,
-                            ) // Skeletonizer هيبني placeholder تلقائي
-                          : CachedNetworkImage(
-                              cacheManager: customCacheManager,
-                              fit: BoxFit.cover,
-                              imageUrl: movie.poster,
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Center(
-                                    child: CircularProgressIndicator(
-                                      value: downloadProgress.progress,
-                                    ),
-                                  ),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
-                    ),
-                  ),
+                  child: RandomMoviesListItem(movie: movie),
                 );
               },
             ),

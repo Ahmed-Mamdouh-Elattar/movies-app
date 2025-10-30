@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/random_movies_list.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/home_page/random_movies_list.dart';
 
 class RandomMoviesListBuilder extends StatelessWidget {
   const RandomMoviesListBuilder({super.key});

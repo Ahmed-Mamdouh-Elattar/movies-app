@@ -4,7 +4,7 @@ import 'package:movies_app/core/enums/movie_category_enum.dart';
 
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/movie_grid_view.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/home_page/movie_grid_view.dart';
 
 class MoviesGridViewBuilder extends StatefulWidget {
   const MoviesGridViewBuilder({required this.movieCategory, super.key});

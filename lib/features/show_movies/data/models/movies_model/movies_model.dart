@@ -35,7 +35,7 @@ class MoviesModel {
       .map(
         (e) => MoviesEntity(
           id: e.id ?? 0,
-          poster: "$kBaseImageURL${e.posterPath}",
+          poster: e.posterPath == null ? "" : "$kBaseImageURL${e.posterPath}",
         ),
       )
       .toList();

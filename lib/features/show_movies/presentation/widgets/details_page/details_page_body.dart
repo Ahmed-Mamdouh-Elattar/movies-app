@@ -3,7 +3,7 @@ import 'package:movies_app/features/show_movies/presentation/widgets/details_pag
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/cast_tab_builder.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/custom_reviews_builder.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/details_page_movie_tab_bar.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/details_page/movie_cover_and_details.dart';
+import 'package:movies_app/features/show_movies/presentation/widgets/details_page/movie_cover_and_details_builder.dart';
 
 class DetailsPageBody extends StatelessWidget {
   const DetailsPageBody({super.key});
@@ -15,7 +15,7 @@ class DetailsPageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          MovieCoverAndDetails(),
+          MovieCoverAndDetailsBuilder(),
           SizedBox(height: 24),
           DetailsPageMovieTabBar(),
           Expanded(

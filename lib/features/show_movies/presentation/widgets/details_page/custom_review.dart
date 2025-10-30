@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/config/app_text_style.dart';
-import 'package:movies_app/core/helper/custom_cash_manager.dart';
+import 'package:movies_app/core/widgets/custom_cached_network_image.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_reviews_entity.dart';
 
 class CustomReview extends StatelessWidget {
@@ -21,19 +20,7 @@ class CustomReview extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1,
                 child: ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: movieReviews.avatar,
-                    cacheManager: customCacheManager,
-                    fit: BoxFit.cover,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                          ),
-                        ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
+                  child: CustomCachedNetworkImage(image: movieReviews.avatar),
                 ),
               ),
               const SizedBox(height: 16),

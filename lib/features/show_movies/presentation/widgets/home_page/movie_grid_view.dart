@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/enums/movie_category_enum.dart';
 import 'package:movies_app/core/helper/assets.dart';
 import 'package:movies_app/core/helper/constants.dart';
-import 'package:movies_app/core/helper/custom_cash_manager.dart';
 import 'package:movies_app/core/routing/page_name.dart';
+import 'package:movies_app/core/widgets/custom_cached_network_image.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -54,19 +53,8 @@ class MoviesGridView extends StatelessWidget {
                       onTap: () {
                         context.push(PageName.details, extra: movies[index].id);
                       },
-                      child: CachedNetworkImage(
-                        cacheManager: customCacheManager,
-                        height: 250,
-                        fit: BoxFit.cover,
-                        imageUrl: movies[index].poster,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                              child: CircularProgressIndicator(
-                                value: downloadProgress.progress,
-                              ),
-                            ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                      child: CustomCachedNetworkImage(
+                        image: movies[index].poster,
                       ),
                     ),
             );
