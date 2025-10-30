@@ -63,7 +63,10 @@ class _RandomMoviesListState extends State<RandomMoviesList> {
                 return InkWell(
                   onTap: widget.isLoading
                       ? null
-                      : () => context.push(PageName.details),
+                      : () => context.push(
+                          PageName.details,
+                          extra: movie?.id ?? 0,
+                        ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: AspectRatio(
