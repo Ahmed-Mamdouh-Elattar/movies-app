@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/routing/page_name.dart';
 import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/details_page.dart';
@@ -50,5 +51,10 @@ final homeRoute = ShellRoute(
 );
 final detailsRoute = GoRoute(
   path: PageName.details,
-  builder: (context, state) => const DetailsPage(),
+  builder: (context, state) => BlocProvider(
+    create: (context) =>
+        getIt<MovieDetailsCubit>()
+          ..getMovieDetails(movieId: state.extra as int),
+    child: const DetailsPage(),
+  ),
 );
