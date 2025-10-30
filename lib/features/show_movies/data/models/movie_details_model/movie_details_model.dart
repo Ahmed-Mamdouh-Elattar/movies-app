@@ -22,7 +22,7 @@ class MovieDetailsModel {
   final String? posterPath;
   final List<ProductionCompany>? productionCompanies;
   final List<ProductionCountry>? productionCountries;
-  final DateTime? releaseDate;
+  final String? releaseDate;
   final int? revenue;
   final int? runtime;
   final List<SpokenLanguage>? spokenLanguages;
@@ -96,9 +96,7 @@ class MovieDetailsModel {
                   (x) => ProductionCountry.fromJson(x),
                 ),
               ),
-        releaseDate: json["release_date"] == null
-            ? null
-            : DateTime.parse(json["release_date"]),
+        releaseDate: json["release_date"],
         revenue: json["revenue"],
         runtime: json["runtime"],
         spokenLanguages: json["spoken_languages"] == null
@@ -141,8 +139,8 @@ class MovieDetailsModel {
     "production_countries": productionCountries == null
         ? []
         : List<dynamic>.from(productionCountries!.map((x) => x.toJson())),
-    "release_date":
-        "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
+    "release_date": releaseDate,
+
     "revenue": revenue,
     "runtime": runtime,
     "spoken_languages": spokenLanguages == null
@@ -157,7 +155,8 @@ class MovieDetailsModel {
   };
   MovieDetailsEntity toEntity() {
     return MovieDetailsEntity(
-      poster: "$kBaseImageURL${posterPath!}",
+      id: id ?? 0,
+      poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",
       backDrop: "$kBaseImageURL${backdropPath!}",
       title: title!,
       voting: voteAverage!,

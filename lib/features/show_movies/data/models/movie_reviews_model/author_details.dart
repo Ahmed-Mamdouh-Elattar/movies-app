@@ -2,7 +2,7 @@ class AuthorDetails {
   final String? name;
   final String? username;
   final String? avatarPath;
-  final int? rating;
+  final double? rating;
 
   AuthorDetails({this.name, this.username, this.avatarPath, this.rating});
 

@@ -1,3 +1,4 @@
+import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/result.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_reviews_entity.dart';
 
@@ -42,8 +43,12 @@ class MovieReviewsModel {
     return results!
         .map(
           (e) => MovieReviewsEntity(
+            rating: e.authorDetails!.rating,
             author: e.author!,
-            avatar: e.authorDetails!.avatarPath ?? "",
+            avatar: e.authorDetails?.avatarPath != null
+                ? "$kBaseImageURL${e.authorDetails?.avatarPath}"
+                : kFakeImage,
+
             content: e.content!,
           ),
         )

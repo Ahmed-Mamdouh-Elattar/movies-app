@@ -1,3 +1,4 @@
+import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_cast_model/cast.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_cast_entity.dart';
 
@@ -33,7 +34,9 @@ class MovieCastModel {
           (e) => MovieCastEntity(
             id: e.id!,
             name: e.name!,
-            profilePath: e.profilePath ?? "",
+            profilePath: e.profilePath != null
+                ? "$kBaseImageURL${e.profilePath}"
+                : kFakeImage,
           ),
         )
         .toList();

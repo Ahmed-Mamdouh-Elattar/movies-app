@@ -1,14 +1,17 @@
 class MovieDetailsEntity {
-  String poster;
-  String backDrop;
-  String title;
-  double voting;
-  String duration;
-  String date;
-  String overview;
-  List<String> genres;
+  final int id;
+
+  final String poster;
+  final String backDrop;
+  final String title;
+  final double voting;
+  final String duration;
+  final String date;
+  final String overview;
+  final List<String> genres;
 
   MovieDetailsEntity({
+    required this.id,
     required this.poster,
     required this.backDrop,
     required this.title,
