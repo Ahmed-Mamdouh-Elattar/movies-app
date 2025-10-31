@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/utils/result.dart';
+import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_movies_by_category_use_case.dart';
 
