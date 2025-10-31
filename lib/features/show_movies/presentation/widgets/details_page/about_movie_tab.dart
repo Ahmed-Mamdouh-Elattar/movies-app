@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/config/app_text_style.dart';
-import 'package:movies_app/features/show_movies/presentation/managers/cubit/movie_details_cubit.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 
 class AboutMovieTab extends StatelessWidget {
   const AboutMovieTab({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/show_movies/presentation/managers/cubit/movie_details_cubit.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/custom_review.dart';
 
 class CustomReviewsBuilder extends StatefulWidget {
