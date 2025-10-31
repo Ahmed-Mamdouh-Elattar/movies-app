@@ -25,7 +25,7 @@ import 'package:movies_app/features/show_movies/domain/usecases/get_movie_detail
 import 'package:movies_app/features/show_movies/domain/usecases/get_movie_reviews_use_case.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_movies_by_category_use_case.dart';
 import 'package:movies_app/features/show_movies/domain/usecases/get_random_movies_use_case.dart';
-import 'package:movies_app/features/show_movies/presentation/managers/cubit/movie_details_cubit.dart';
+import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
