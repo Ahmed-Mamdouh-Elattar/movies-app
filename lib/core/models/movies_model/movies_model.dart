@@ -1,5 +1,5 @@
 import 'package:movies_app/core/helper/constants.dart';
-import 'package:movies_app/features/show_movies/data/models/movies_model/movie_results.dart';
+import 'package:movies_app/core/models/movies_model/movie_results.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movies_entity.dart';
 
 class MoviesModel {
