@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/utils/result.dart';
+import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/usecases/send_code_use_case.dart';
 import 'package:movies_app/features/auth/domain/usecases/verify_code_use_case.dart';
 
@@ -22,11 +22,11 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     emit(const PhoneAuthState.loading());
     final result = await _sendCodeUseCase.call(phoneNumber);
     switch (result) {
-      case ResultSuccess<String>(:final data):
+      case ResponseResultSuccess<String>(:final data):
         verificationId = data;
         emit(const PhoneAuthState.initial());
         break;
-      case ResultFailure<String>(:final failure):
+      case ResponseResultFailure<String>(:final failure):
         emit(PhoneAuthState.failure(failure.errMessage));
     }
   }
@@ -36,9 +36,9 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     if (verificationId != null) {
       final result = await _verifyCodeUseCase.call(verificationId!, smsCode);
       switch (result) {
-        case ResultSuccess<String>():
+        case ResponseResultSuccess<String>():
           emit(const PhoneAuthState.success());
-        case ResultFailure<String>(:final failure):
+        case ResponseResultFailure<String>(:final failure):
           emit(PhoneAuthState.failure(failure.errMessage));
       }
     } else {

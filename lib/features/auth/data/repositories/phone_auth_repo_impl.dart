@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movies_app/core/errors/failures.dart';
-import 'package:movies_app/core/utils/result.dart';
+import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/repositories/phone_auth_repo.dart';
 
 class PhoneAuthRepoImpl implements PhoneAuthRepo {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  Future<Result<String>> sendCode(String phoneNumber) async {
+  Future<ResponseResult<String>> sendCode(String phoneNumber) async {
     try {
       final completer = Completer<String>();
 
@@ -31,14 +31,14 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
         },
       );
       String verificationId = await completer.future;
-      return Result.success(verificationId);
+      return ResponseResult.success(verificationId);
     } catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Result<String>> verifyCode(
+  Future<ResponseResult<String>> verifyCode(
     String verificationId,
     String smsCode,
   ) async {
@@ -49,13 +49,13 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
       );
 
       await _auth.signInWithCredential(credential);
-      return const Result.success("Success");
+      return const ResponseResult.success("Success");
     } on FirebaseAuthException catch (e) {
-      return Result.failure(
+      return ResponseResult.failure(
         Failures(errMessage: e.message ?? "Something went wrong"),
       );
     } catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 }

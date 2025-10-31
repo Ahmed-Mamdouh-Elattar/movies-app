@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:movies_app/core/errors/failures.dart';
-import 'package:movies_app/core/utils/result.dart';
+import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
 
 class FacebookAuthRepoImpl implements SocialAuthRepo {
   @override
-  Future<Result<UserCredential>> signInOrUp() async {
+  Future<ResponseResult<UserCredential>> signInOrUp() async {
     // Trigger the sign-in flow
 
     final LoginResult loginResult = await FacebookAuth.instance.login(
@@ -19,19 +19,19 @@ class FacebookAuthRepoImpl implements SocialAuthRepo {
         loginResult.accessToken!.tokenString,
       );
     } else if (loginResult.status == LoginStatus.cancelled) {
-      return const Result.failure(
+      return const ResponseResult.failure(
         Failures(errMessage: "Signing process was canceled."),
       );
     } else if (loginResult.status == LoginStatus.failed) {
-      return const Result.failure(
+      return const ResponseResult.failure(
         Failures(errMessage: "Signing process failed."),
       );
     } else if (loginResult.status == LoginStatus.operationInProgress) {
-      return const Result.failure(
+      return const ResponseResult.failure(
         Failures(errMessage: "Signing process is in progress."),
       );
     } else {
-      return const Result.failure(
+      return const ResponseResult.failure(
         Failures(
           errMessage:
               "An unexpected error occurred during signing. Please try again later.",
@@ -40,7 +40,7 @@ class FacebookAuthRepoImpl implements SocialAuthRepo {
     }
 
     // Once signed in, return the UserCredential
-    return Result.success(
+    return ResponseResult.success(
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential),
     );
   }

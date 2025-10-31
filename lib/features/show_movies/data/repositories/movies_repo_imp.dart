@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/errors/server_failure.dart';
-import 'package:movies_app/core/utils/result.dart';
+import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/show_movies/data/datasources/movies_data_source.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_cast_entity.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_details_entity.dart';
@@ -13,7 +13,7 @@ class MoviesRepoImp implements MoviesRepo {
   final MoviesDataSource _moviesDataSource;
   MoviesRepoImp(this._moviesDataSource);
   @override
-  Future<Result<List<MoviesEntity>>> getMoviesByCategory({
+  Future<ResponseResult<List<MoviesEntity>>> getMoviesByCategory({
     required String category,
     required int page,
   }) async {
@@ -22,67 +22,67 @@ class MoviesRepoImp implements MoviesRepo {
         category: category,
         page: page,
       );
-      return Result.success(result.toEntity());
+      return ResponseResult.success(result.toMoviesEntity());
     } on DioException catch (e) {
-      return Result.failure(ServerFailure.fromDioError(e));
+      return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Result<List<MoviesEntity>>> getRandomeMovies({
+  Future<ResponseResult<List<MoviesEntity>>> getRandomeMovies({
     required int page,
   }) async {
     try {
       final result = await _moviesDataSource.getRandomeMovies(page: page);
-      return Result.success(result.toEntity());
+      return ResponseResult.success(result.toMoviesEntity());
     } on DioException catch (e) {
-      return Result.failure(ServerFailure.fromDioError(e));
+      return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Result<List<MovieCastEntity>>> getMovieCast({
+  Future<ResponseResult<List<MovieCastEntity>>> getMovieCast({
     required int movieId,
   }) async {
     try {
       final result = await _moviesDataSource.getMovieCast(movieId: movieId);
-      return Result.success(result.toEntity());
+      return ResponseResult.success(result.toEntity());
     } on DioException catch (e) {
-      return Result.failure(ServerFailure.fromDioError(e));
+      return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Result<MovieDetailsEntity>> getMovieDetails({
+  Future<ResponseResult<MovieDetailsEntity>> getMovieDetails({
     required int movieId,
   }) async {
     try {
       final result = await _moviesDataSource.getMovieDetails(movieId: movieId);
-      return Result.success(result.toEntity());
+      return ResponseResult.success(result.toEntity());
     } on DioException catch (e) {
-      return Result.failure(ServerFailure.fromDioError(e));
+      return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 
   @override
-  Future<Result<List<MovieReviewsEntity>>> getMovieReviews({
+  Future<ResponseResult<List<MovieReviewsEntity>>> getMovieReviews({
     required int movieId,
   }) async {
     try {
       final result = await _moviesDataSource.getMovieReviews(movieId: movieId);
-      return Result.success(result.toEntity());
+      return ResponseResult.success(result.toEntity());
     } on DioException catch (e) {
-      return Result.failure(ServerFailure.fromDioError(e));
+      return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
-      return Result.failure(Failures(errMessage: e.toString()));
+      return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
   }
 }
