@@ -2,7 +2,7 @@ import 'package:movies_app/features/show_movies/data/datasources/api_service.dar
 import 'package:movies_app/features/show_movies/data/models/movie_cast_model/movie_cast_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/movie_details_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/movie_reviews_model.dart';
-import 'package:movies_app/features/show_movies/data/models/movies_model/movies_model.dart';
+import 'package:movies_app/core/models/movies_model/movies_model.dart';
 
 abstract class MoviesDataSource {
   Future<MoviesModel> getMoviesByCategory({
