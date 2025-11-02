@@ -55,13 +55,15 @@ extension SearchStatePatterns on SearchState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( LoadingMore value)?  loadingMore,TResult Function( LoadedMore value)?  loadedMore,TResult Function( Failure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
-return loaded(_that);case Failure() when failure != null:
+return loaded(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case LoadedMore() when loadedMore != null:
+return loadedMore(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -80,13 +82,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( LoadingMore value)  loadingMore,required TResult Function( LoadedMore value)  loadedMore,required TResult Function( Failure value)  failure,}){
 final _that = this;
 switch (_that) {
 case Initial():
 return initial(_that);case Loading():
 return loading(_that);case Loaded():
-return loaded(_that);case Failure():
+return loaded(_that);case LoadingMore():
+return loadingMore(_that);case LoadedMore():
+return loadedMore(_that);case Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +108,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( LoadingMore value)?  loadingMore,TResult? Function( LoadedMore value)?  loadedMore,TResult? Function( Failure value)?  failure,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Loaded() when loaded != null:
-return loaded(_that);case Failure() when failure != null:
+return loaded(_that);case LoadingMore() when loadingMore != null:
+return loadingMore(_that);case LoadedMore() when loadedMore != null:
+return loadedMore(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -128,12 +134,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<SearchMoviesEntity> movies)?  loaded,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<SearchMoviesEntity> movies)?  loaded,TResult Function()?  loadingMore,TResult Function( List<SearchMoviesEntity> movies)?  loadedMore,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.movies);case Failure() when failure != null:
+return loaded(_that.movies);case LoadingMore() when loadingMore != null:
+return loadingMore();case LoadedMore() when loadedMore != null:
+return loadedMore(_that.movies);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return orElse();
 
@@ -152,12 +160,14 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<SearchMoviesEntity> movies)  loaded,required TResult Function( String errMessage)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<SearchMoviesEntity> movies)  loaded,required TResult Function()  loadingMore,required TResult Function( List<SearchMoviesEntity> movies)  loadedMore,required TResult Function( String errMessage)  failure,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Loaded():
-return loaded(_that.movies);case Failure():
+return loaded(_that.movies);case LoadingMore():
+return loadingMore();case LoadedMore():
+return loadedMore(_that.movies);case Failure():
 return failure(_that.errMessage);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +185,14 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<SearchMoviesEntity> movies)?  loaded,TResult? Function( String errMessage)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<SearchMoviesEntity> movies)?  loaded,TResult? Function()?  loadingMore,TResult? Function( List<SearchMoviesEntity> movies)?  loadedMore,TResult? Function( String errMessage)?  failure,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.movies);case Failure() when failure != null:
+return loaded(_that.movies);case LoadingMore() when loadingMore != null:
+return loadingMore();case LoadedMore() when loadedMore != null:
+return loadedMore(_that.movies);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return null;
 
@@ -317,6 +329,110 @@ class _$LoadedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? movies = null,}) {
   return _then(Loaded(
+null == movies ? _self._movies : movies // ignore: cast_nullable_to_non_nullable
+as List<SearchMoviesEntity>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class LoadingMore implements SearchState {
+  const LoadingMore();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadingMore);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SearchState.loadingMore()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class LoadedMore implements SearchState {
+  const LoadedMore(final  List<SearchMoviesEntity> movies): _movies = movies;
+  
+
+ final  List<SearchMoviesEntity> _movies;
+ List<SearchMoviesEntity> get movies {
+  if (_movies is EqualUnmodifiableListView) return _movies;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_movies);
+}
+
+
+/// Create a copy of SearchState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadedMoreCopyWith<LoadedMore> get copyWith => _$LoadedMoreCopyWithImpl<LoadedMore>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadedMore&&const DeepCollectionEquality().equals(other._movies, _movies));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_movies));
+
+@override
+String toString() {
+  return 'SearchState.loadedMore(movies: $movies)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadedMoreCopyWith<$Res> implements $SearchStateCopyWith<$Res> {
+  factory $LoadedMoreCopyWith(LoadedMore value, $Res Function(LoadedMore) _then) = _$LoadedMoreCopyWithImpl;
+@useResult
+$Res call({
+ List<SearchMoviesEntity> movies
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadedMoreCopyWithImpl<$Res>
+    implements $LoadedMoreCopyWith<$Res> {
+  _$LoadedMoreCopyWithImpl(this._self, this._then);
+
+  final LoadedMore _self;
+  final $Res Function(LoadedMore) _then;
+
+/// Create a copy of SearchState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? movies = null,}) {
+  return _then(LoadedMore(
 null == movies ? _self._movies : movies // ignore: cast_nullable_to_non_nullable
 as List<SearchMoviesEntity>,
   ));

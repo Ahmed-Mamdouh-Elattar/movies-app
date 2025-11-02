@@ -22,10 +22,6 @@ class SearchRepoImpl implements SearchRepo {
     required int page,
   }) async {
     _cancelSearchRequest();
-    if (query.isEmpty) {
-      return const ResponseResult.success([]);
-    }
-
     _cancelToken = CancelToken();
     try {
       final response = await _searchDataSource.searchMovies(
