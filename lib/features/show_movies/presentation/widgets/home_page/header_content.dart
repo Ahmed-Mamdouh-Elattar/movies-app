@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/helper/constants.dart';
-import 'package:movies_app/features/show_movies/presentation/widgets/home_page/search_text_field.dart';
+import 'package:movies_app/features/search/presentation/widgets/search_text_field.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/home_page/random_movies_list_builder.dart';
 
 class HeaderContent extends StatelessWidget {

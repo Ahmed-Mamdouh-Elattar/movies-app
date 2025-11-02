@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_service.dart';
+part of 'search_api_service.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _ApiService implements ApiService {
-  _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
+class _SearchApiService implements SearchApiService {
+  _SearchApiService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://api.themoviedb.org/3/';
   }
 

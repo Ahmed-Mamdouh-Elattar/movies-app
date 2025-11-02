@@ -17,6 +17,11 @@ import 'package:movies_app/features/auth/domain/usecases/verify_code_use_case.da
 import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit/social_auth_cubit.dart';
+import 'package:movies_app/features/search/data/datasources/search_api_service.dart';
+import 'package:movies_app/features/search/data/datasources/search_data_source.dart';
+import 'package:movies_app/features/search/data/repositories/search_repo_impl.dart';
+import 'package:movies_app/features/search/domain/usecases/search_use_case.dart';
+import 'package:movies_app/features/search/presentation/managers/search_cubit/search_cubit.dart';
 import 'package:movies_app/features/show_movies/data/datasources/api_service.dart';
 import 'package:movies_app/features/show_movies/data/datasources/movies_data_source.dart';
 import 'package:movies_app/features/show_movies/data/repositories/movies_repo_imp.dart';
@@ -111,5 +116,20 @@ void setUpServiceLocator() {
       getIt.get<GetMovieCastUseCase>(),
       getIt.get<GetMovieReviewsUseCase>(),
     ),
+  );
+  getIt.registerLazySingleton<SearchApiService>(
+    () => SearchApiService(getIt.get<Dio>()),
+  );
+  getIt.registerLazySingleton<SearchDataSourceImpl>(
+    () => SearchDataSourceImpl(getIt.get<SearchApiService>()),
+  );
+  getIt.registerLazySingleton<SearchRepoImpl>(
+    () => SearchRepoImpl(getIt.get<SearchDataSourceImpl>()),
+  );
+  getIt.registerLazySingleton<SearchUseCase>(
+    () => SearchUseCase(getIt.get<SearchRepoImpl>()),
+  );
+  getIt.registerFactory<SearchCubit>(
+    () => SearchCubit(getIt.get<SearchUseCase>()),
   );
 }
