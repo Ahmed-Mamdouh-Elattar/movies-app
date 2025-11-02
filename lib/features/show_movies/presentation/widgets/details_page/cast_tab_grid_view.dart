@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/config/app_text_style.dart';
 import 'package:movies_app/core/helper/constants.dart';
+import 'package:movies_app/core/widgets/custom_cached_network_image.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_cast_entity.dart';
 
 class CastTabGridView extends StatelessWidget {
@@ -28,9 +28,8 @@ class CastTabGridView extends StatelessWidget {
               child: ClipOval(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: movieCast[index].profilePath,
+                  child: CustomCachedNetworkImage(
+                    image: movieCast[index].profilePath,
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/search/presentation/managers/search_cubit/search_cubit.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({super.key});
@@ -6,6 +8,10 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (value) {
+        context.read<SearchCubit>().searchMovies(value);
+      },
+      autofocus: true,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: 'Search',

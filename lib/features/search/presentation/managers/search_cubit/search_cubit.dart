@@ -15,15 +15,18 @@ class SearchCubit extends Cubit<SearchState> {
   List<SearchMoviesEntity> _movies = [];
   int _currentPage = 1;
   String _lastQuery = '';
+  bool _hasMore = true;
   Timer? _debounce;
-  Future<void> searchMovies(String query) async {
+  Future<void> searchMovies(String? query) async {
     _debounce?.cancel();
+    query ??= _lastQuery;
 
     _debounce = Timer(const Duration(milliseconds: 500), () async {
-      if (query.isEmpty) {
+      if (query!.isEmpty) {
         _movies = [];
         _currentPage = 1;
         _lastQuery = '';
+        _hasMore = true;
         emit(const SearchState.loaded([]));
         return;
       }
@@ -31,9 +34,12 @@ class SearchCubit extends Cubit<SearchState> {
       if (query != _lastQuery) {
         _movies = [];
         _currentPage = 1;
+        _hasMore = true;
       }
       _lastQuery = query;
-
+      if (!_hasMore) {
+        return;
+      }
       _currentPage > 1
           ? emit(const SearchState.loadingMore())
           : emit(const SearchState.loading());
@@ -43,11 +49,13 @@ class SearchCubit extends Cubit<SearchState> {
       );
       result.when(
         success: (movies) {
+          if (movies.isEmpty) {
+            _hasMore = false;
+          }
           _movies.addAll(movies);
+
+          emit(SearchState.loaded(_movies));
           _currentPage++;
-          _currentPage > 1
-              ? emit(SearchState.loadedMore(_movies))
-              : emit(SearchState.loaded(_movies));
         },
         failure: (error) {
           emit(SearchState.failure(error.errMessage));

@@ -6,4 +6,5 @@ class PageName {
 
   static const String home = "/home";
   static const String details = "/home/details";
+  static const String search = "/home/search";
 }
