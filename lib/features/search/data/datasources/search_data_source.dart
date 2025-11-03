@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:movies_app/core/models/movies_model/movies_model.dart';
-import 'package:movies_app/features/search/data/datasources/search_api_service.dart';
+import 'package:movies_app/core/services/api/api_service.dart';
 
 abstract class SearchDataSource {
   Future<MoviesModel> searchMovies({
@@ -11,7 +11,7 @@ abstract class SearchDataSource {
 }
 
 class SearchDataSourceImpl implements SearchDataSource {
-  final SearchApiService _apiService;
+  final ApiService _apiService;
   SearchDataSourceImpl(this._apiService);
   @override
   Future<MoviesModel> searchMovies({

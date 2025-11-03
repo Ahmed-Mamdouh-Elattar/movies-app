@@ -3,6 +3,7 @@ import 'package:movies_app/features/show_movies/data/models/movie_cast_model/mov
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/movie_details_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/movie_reviews_model.dart';
 import 'package:movies_app/core/models/movies_model/movies_model.dart';
+import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 part 'api_service.g.dart';
@@ -37,6 +38,13 @@ abstract class ApiService {
   @GET("movie/{movie_id}/reviews")
   Future<MovieReviewsModel> getMovieReviews({
     @Path("movie_id") required int movieId,
+    @Query("language") String language = "en-US",
+  });
+  @GET('/search/movie')
+  Future<MoviesModel> searchMovies({
+    @Query('query') required String query,
+    @Query('page') required int page,
+    @CancelRequest() required CancelToken cancelToken,
     @Query("language") String language = "en-US",
   });
 }

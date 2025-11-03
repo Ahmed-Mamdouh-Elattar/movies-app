@@ -157,7 +157,7 @@ class MovieDetailsModel {
     return MovieDetailsEntity(
       id: id ?? 0,
       poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",
-      backDrop: "$kBaseImageURL${backdropPath!}",
+      backDrop: backdropPath == null ? "" : "$kBaseImageURL${backdropPath!}",
       title: title!,
       voting: voteAverage!,
       duration: runtime.toString(),

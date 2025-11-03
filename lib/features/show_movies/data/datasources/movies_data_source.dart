@@ -1,4 +1,4 @@
-import 'package:movies_app/features/show_movies/data/datasources/api_service.dart';
+import 'package:movies_app/core/services/api/api_service.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_cast_model/movie_cast_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_details_model/movie_details_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/movie_reviews_model.dart';
