@@ -1,9 +1,10 @@
 import 'package:movies_app/core/helper/constants.dart';
-import 'package:movies_app/features/show_movies/data/models/movie_details_model/genre.dart';
-import 'package:movies_app/features/show_movies/data/models/movie_details_model/production_company.dart';
-import 'package:movies_app/features/show_movies/data/models/movie_details_model/production_country.dart';
-import 'package:movies_app/features/show_movies/data/models/movie_details_model/spoken_language.dart';
+import 'package:movies_app/core/models/movie_details_model/genre.dart';
+import 'package:movies_app/core/models/movie_details_model/production_company.dart';
+import 'package:movies_app/core/models/movie_details_model/production_country.dart';
+import 'package:movies_app/core/models/movie_details_model/spoken_language.dart';
 import 'package:movies_app/features/show_movies/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/features/watch_list/domain/entities/movie_watch_list_entity.dart';
 
 class MovieDetailsModel {
   final bool? adult;
@@ -163,6 +164,18 @@ class MovieDetailsModel {
       duration: runtime.toString(),
       date: releaseDate.toString(),
       overview: overview!,
+      genres: genres!.map((e) => e.name!).toList(),
+    );
+  }
+
+  MovieWatchListEntity toWatchListEntity() {
+    return MovieWatchListEntity(
+      id: id ?? 0,
+      poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",
+      title: title!,
+      voting: voteAverage!,
+      duration: runtime.toString(),
+      date: releaseDate.toString(),
       genres: genres!.map((e) => e.name!).toList(),
     );
   }
