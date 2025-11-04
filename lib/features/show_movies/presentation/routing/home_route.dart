@@ -9,18 +9,29 @@ import 'package:movies_app/features/show_movies/presentation/managers/movies_cat
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/details_page.dart';
 import 'package:movies_app/features/show_movies/presentation/pages/home_page.dart';
+import 'package:movies_app/features/watch_list/presentation/routing/watch_list_go_route.dart';
 
 final homeRoute = ShellRoute(
   builder: (context, state, child) {
     return Scaffold(
-      body: child,
+      body: SafeArea(child: child),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: AppColor.blue)),
         ),
         child: BottomNavigationBar(
+          onTap: (value) {
+            switch (value) {
+              case 0:
+                context.go(PageName.home);
+                break;
+              case 1:
+                context.go(PageName.watchList);
+                break;
+            }
+          },
           backgroundColor: AppColor.primary,
-          currentIndex: 0,
+          currentIndex: state.fullPath == PageName.home ? 0 : 1,
           selectedItemColor: AppColor.blue,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -47,6 +58,7 @@ final homeRoute = ShellRoute(
         child: const HomePage(),
       ),
     ),
+    watchListRoute,
   ],
 );
 final detailsRoute = GoRoute(
@@ -55,6 +67,6 @@ final detailsRoute = GoRoute(
     create: (context) =>
         getIt<MovieDetailsCubit>()
           ..getMovieDetails(movieId: state.extra as int),
-    child: const DetailsPage(),
+    child: DetailsPage(movieId: state.extra as int),
   ),
 );

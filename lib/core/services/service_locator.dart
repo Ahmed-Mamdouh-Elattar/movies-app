@@ -33,6 +33,10 @@ import 'package:movies_app/features/show_movies/presentation/managers/movie_deta
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
 import 'package:movies_app/features/splash_screen/managers/cubit/splash_cubit.dart';
+import 'package:movies_app/features/watch_list/data/datasources/watch_list_movies_source.dart';
+import 'package:movies_app/features/watch_list/data/repositories/watch_list_repo_impl.dart';
+import 'package:movies_app/features/watch_list/domain/usecases/get_movies_watch_list_use_case.dart';
+import 'package:movies_app/features/watch_list/presentation/managers/cubit/watch_list_cubit.dart';
 
 final getIt = GetIt.instance;
 void setUpServiceLocator() {
@@ -128,5 +132,17 @@ void setUpServiceLocator() {
   );
   getIt.registerFactory<SearchCubit>(
     () => SearchCubit(getIt.get<SearchUseCase>()),
+  );
+  getIt.registerLazySingleton<WatchListMoviesSource>(
+    () => WatchListMoviesSource(getIt.get<ApiService>()),
+  );
+  getIt.registerLazySingleton<WatchListRepoImpl>(
+    () => WatchListRepoImpl(getIt.get<WatchListMoviesSource>()),
+  );
+  getIt.registerLazySingleton<GetMoviesWatchListUseCase>(
+    () => GetMoviesWatchListUseCase(getIt.get<WatchListRepoImpl>()),
+  );
+  getIt.registerFactory<WatchListCubit>(
+    () => WatchListCubit(getIt.get<GetMoviesWatchListUseCase>()),
   );
 }

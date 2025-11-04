@@ -6,9 +6,9 @@ import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_c
 
 import 'package:movies_app/features/auth/presentation/routing/auth_route.dart';
 import 'package:movies_app/features/search/presentation/routing/search_route.dart';
-import 'package:movies_app/features/show_movies/presentation/routing/home_route.dart';
 
 import 'package:movies_app/features/splash_screen/presentation/routing/splash_router.dart';
+import 'package:movies_app/features/watch_list/presentation/routing/watch_list_go_route.dart';
 
 final appRouter = GoRouter(
   initialLocation: PageName.splash,
@@ -22,5 +22,5 @@ final appRouter = GoRouter(
     }
     return null;
   },
-  routes: [splashRouter, authRouter, homeRoute, detailsRoute, searchRoute],
+  routes: [splashRouter, authRouter, watchListAndHomeShellRoute, searchRoute],
 );
