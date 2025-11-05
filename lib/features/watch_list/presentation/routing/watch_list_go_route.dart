@@ -9,19 +9,7 @@ import 'package:movies_app/features/watch_list/presentation/pages/watch_list_pag
 
 final watchListRoute = GoRoute(
   path: PageName.watchList,
-  pageBuilder: (context, state) => CustomTransitionPage(
-    key: state.pageKey,
-    child: const WatchListPage(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1.0, 0.0),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      );
-    },
-  ),
+  builder: (context, state) => const WatchListPage(),
 );
 final watchListAndHomeShellRoute = ShellRoute(
   builder: (context, state, child) => BlocProvider<WatchListCubit>(
