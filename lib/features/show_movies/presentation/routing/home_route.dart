@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/routing/page_name.dart';
 import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/features/ai_chat/presentation/routing/ai_chat_route.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/random_movies_cubit/random_movies_cubit.dart';
@@ -28,6 +29,9 @@ final homeRoute = ShellRoute(
               case 1:
                 context.go(PageName.watchList);
                 break;
+              case 2:
+                context.go(PageName.aiChat);
+                break;
             }
           },
           backgroundColor: AppColor.primary,
@@ -39,6 +43,7 @@ final homeRoute = ShellRoute(
               icon: Icon(Icons.bookmark),
               label: 'Watch list',
             ),
+            BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'AI Chat'),
           ],
         ),
       ),
@@ -59,6 +64,7 @@ final homeRoute = ShellRoute(
       ),
     ),
     watchListRoute,
+    aiChatRoute,
   ],
 );
 final detailsRoute = GoRoute(
