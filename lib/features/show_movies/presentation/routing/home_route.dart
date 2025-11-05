@@ -35,7 +35,8 @@ final homeRoute = ShellRoute(
             }
           },
           backgroundColor: AppColor.primary,
-          currentIndex: state.fullPath == PageName.home ? 0 : 1,
+          currentIndex: _calculateSelectedIndex(state),
+
           selectedItemColor: AppColor.blue,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -76,3 +77,16 @@ final detailsRoute = GoRoute(
     child: DetailsPage(movieId: state.extra as int),
   ),
 );
+int _calculateSelectedIndex(GoRouterState state) {
+  String location = state.fullPath ?? "";
+  if (location == (PageName.home)) {
+    return 0;
+  }
+  if (location == (PageName.watchList)) {
+    return 1;
+  }
+  if (location == (PageName.aiChat)) {
+    return 2;
+  }
+  return 0;
+}
