@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/config/app_color.dart';
+
+import 'package:movies_app/features/ai_chat/presentation/widgets/chat_list_builder.dart';
+import 'package:movies_app/features/ai_chat/presentation/widgets/send_message_text_field.dart';
 
 class AiChatPageBody extends StatelessWidget {
   const AiChatPageBody({super.key});
@@ -9,26 +11,10 @@ class AiChatPageBody extends StatelessWidget {
     return Column(
       children: [
         AppBar(title: const Text("Movies Chat Bot")),
-        const Expanded(child: SizedBox()),
-        Row(
-          children: [
-            const SizedBox(width: 8),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.send, color: AppColor.blue),
-            ),
-          ],
-        ),
+        const SizedBox(height: 16),
+        const Expanded(child: ChatListBuilder()),
+        const SizedBox(height: 16),
+        const SendMessageTextField(),
         const SizedBox(height: 16),
       ],
     );

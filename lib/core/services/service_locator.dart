@@ -4,6 +4,10 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_app/core/networking/dio/dio_object.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/core/networking/network_info/network_info.dart';
+import 'package:movies_app/features/ai_chat/data/datasources/ai_chat_source.dart';
+import 'package:movies_app/features/ai_chat/data/repositories/ai_chat_repo_impl.dart';
+import 'package:movies_app/features/ai_chat/domain/usecases/get_ai_chat_response_use_case.dart';
+import 'package:movies_app/features/ai_chat/presentation/managers/cubit/ai_chat_cubit.dart';
 import 'package:movies_app/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:movies_app/features/auth/data/repositories/facebook_auth_repo_impl.dart';
 import 'package:movies_app/features/auth/data/repositories/google_auth_repo_imp.dart';
@@ -144,5 +148,15 @@ void setUpServiceLocator() {
   );
   getIt.registerFactory<WatchListCubit>(
     () => WatchListCubit(getIt.get<GetMoviesWatchListUseCase>()),
+  );
+  getIt.registerFactory<AiChatSourceImpl>(() => AiChatSourceImpl());
+  getIt.registerFactory<AiChatRepoImpl>(
+    () => AiChatRepoImpl(getIt.get<AiChatSourceImpl>()),
+  );
+  getIt.registerFactory<GetAiChatResponseUseCase>(
+    () => GetAiChatResponseUseCase(getIt.get<AiChatRepoImpl>()),
+  );
+  getIt.registerFactory<AiChatCubit>(
+    () => AiChatCubit(getIt.get<GetAiChatResponseUseCase>()),
   );
 }
