@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
@@ -81,7 +79,7 @@ class GoogleAuthRepoImp implements SocialAuthRepo {
           ),
         );
       }
-    } on Exception catch (e) {
+    } on Exception {
       return const ResponseResult.failure(
         Failures(
           errMessage: "An unexpected error occurred. Please try again later.",
