@@ -1,6 +1,6 @@
 # Movies App
 
-![App Demo GIF](assets/app_screens/app_demo_gif.mp4)
+![App Demo GIF](assets/app_screens/app_demo_gif.gif)
 
 A Flutter application for browsing movies, managing a watchlist, and getting movie recommendations from an AI-powered chat.
 
@@ -44,7 +44,7 @@ A Flutter application for browsing movies, managing a watchlist, and getting mov
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/movies-app.git
+    git clone https://github.com/Ahmed-Mamdouh-Elattar/movies_app.git
     ```
 2.  Install the dependencies:
     ```bash
