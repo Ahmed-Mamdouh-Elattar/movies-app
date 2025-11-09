@@ -33,7 +33,6 @@ class WatchListCubit extends Cubit<WatchListState> {
       );
     }
     await isMovieExistedInWatchList(movieId);
-    await getWatchListMovies();
   }
 
   Future<void> isMovieExistedInWatchList(String movieId) async {

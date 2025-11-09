@@ -12,7 +12,7 @@ import 'package:movies_app/features/show_movies/presentation/pages/details_page.
 import 'package:movies_app/features/show_movies/presentation/pages/home_page.dart';
 import 'package:movies_app/features/watch_list/presentation/routing/watch_list_go_route.dart';
 
-final homeRoute = ShellRoute(
+final homeShellRoute = ShellRoute(
   builder: (context, state, child) {
     return Scaffold(
       body: SafeArea(child: child),
@@ -51,23 +51,22 @@ final homeRoute = ShellRoute(
     );
   },
 
-  routes: [
-    GoRoute(
-      path: PageName.home,
-      builder: (context, state) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => getIt<MoviesCategoryCubit>()),
-          BlocProvider(
-            create: (context) => getIt<RandomMoviesCubit>()..getRandomMovies(),
-          ),
-        ],
-        child: const HomePage(),
-      ),
-    ),
-    watchListRoute,
-    aiChatRoute,
-  ],
+  routes: [homeRoute, watchListRoute, aiChatRoute],
 );
+
+final homeRoute = GoRoute(
+  path: PageName.home,
+  builder: (context, state) => MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => getIt<MoviesCategoryCubit>()),
+      BlocProvider(
+        create: (context) => getIt<RandomMoviesCubit>()..getRandomMovies(),
+      ),
+    ],
+    child: const HomePage(),
+  ),
+);
+
 final detailsRoute = GoRoute(
   path: PageName.details,
   builder: (context, state) => BlocProvider(
