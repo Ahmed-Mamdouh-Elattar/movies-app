@@ -44,7 +44,7 @@ A Flutter application for browsing movies, managing a watchlist, and getting mov
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/Ahmed-Mamdouh-Elattar/movies_app.git
+    git clone https://github.com/Ahmed-Mamdouh-Elattar/movies-app.git
     ```
 2.  Install the dependencies:
     ```bash
