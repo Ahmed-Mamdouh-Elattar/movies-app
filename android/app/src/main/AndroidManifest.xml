@@ -4,7 +4,7 @@
     <application
         android:name="${applicationName}"
         android:label="movies_app"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
 
         <!-- 🔹 إعدادات فيسبوك -->
         <meta-data

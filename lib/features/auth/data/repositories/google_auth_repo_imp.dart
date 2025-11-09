@@ -82,7 +82,6 @@ class GoogleAuthRepoImp implements SocialAuthRepo {
         );
       }
     } on Exception catch (e) {
-      log(e.toString());
       return const ResponseResult.failure(
         Failures(
           errMessage: "An unexpected error occurred. Please try again later.",

@@ -21,7 +21,6 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
     if (_phoneFormKey.currentState!.validate()) {
       _phoneFormKey.currentState!.save();
       if (_phoneNumber != null) {
-        log(_phoneNumber!.phoneNumber!);
         await context.read<PhoneAuthCubit>().sendCode(
           _phoneNumber!.phoneNumber!,
         );
