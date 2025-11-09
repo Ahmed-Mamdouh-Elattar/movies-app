@@ -11,7 +11,10 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(PageName.details, extra: movie.id),
+      onTap: () async {
+        FocusScope.of(context).unfocus();
+        await context.push(PageName.details, extra: movie.id);
+      },
       child: Container(
         padding: const EdgeInsets.all(8),
 
