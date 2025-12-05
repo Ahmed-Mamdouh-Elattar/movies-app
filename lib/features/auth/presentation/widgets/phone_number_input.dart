@@ -1,40 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 
-class PhoneNumberInput extends StatefulWidget {
+class PhoneNumberInput extends HookWidget {
   const PhoneNumberInput({super.key});
 
   @override
-  State<PhoneNumberInput> createState() => _PhoneNumberInputState();
-}
-
-class _PhoneNumberInputState extends State<PhoneNumberInput> {
-  final _phoneFormKey = GlobalKey<FormState>();
-  PhoneNumber? _phoneNumber;
-
-  void _sendSms() async {
-    if (_phoneFormKey.currentState!.validate()) {
-      _phoneFormKey.currentState!.save();
-      if (_phoneNumber != null) {
-        await context.read<PhoneAuthCubit>().sendCode(
-          _phoneNumber!.phoneNumber!,
-        );
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final phoneFormKey = useMemoized(() => GlobalKey<FormState>());
+    final phoneNumber = useRef<PhoneNumber?>(null);
+    final sendSms = useCallback(() async {
+      if (phoneFormKey.currentState!.validate()) {
+        phoneFormKey.currentState!.save();
+        if (phoneNumber.value != null) {
+          await context.read<PhoneAuthCubit>().sendCode(
+            phoneNumber.value!.phoneNumber!,
+          );
+        }
+      }
+    }, [phoneFormKey]);
+
     return Form(
-      key: _phoneFormKey,
+      key: phoneFormKey,
       child: Column(
         children: [
           InternationalPhoneNumberInput(
             onSaved: (value) {
-              _phoneNumber = value;
+              phoneNumber.value = value;
             },
             onInputChanged: (value) {},
             selectorTextStyle: const TextStyle(color: AppColor.goldOrange),
@@ -47,7 +42,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
             ),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(onPressed: _sendSms, child: const Text('Send SMS')),
+          ElevatedButton(onPressed: sendSms, child: const Text('Send SMS')),
         ],
       ),
     );

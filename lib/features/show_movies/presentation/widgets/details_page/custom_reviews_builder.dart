@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/custom_review.dart';
 
-class CustomReviewsBuilder extends StatefulWidget {
+class CustomReviewsBuilder extends HookWidget {
   const CustomReviewsBuilder({super.key});
 
   @override
-  State<CustomReviewsBuilder> createState() => _CustomReviewsBuilderState();
-}
-
-class _CustomReviewsBuilderState extends State<CustomReviewsBuilder> {
-  @override
-  void initState() {
-    context.read<MovieDetailsCubit>().getMovieReviews();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      context.read<MovieDetailsCubit>().getMovieReviews();
+      return null;
+    }, []);
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
       buildWhen: (previous, current) {
         if (current.isMovieReviews) {
