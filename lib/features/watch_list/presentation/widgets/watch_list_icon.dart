@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/core/di/service_locator.dart';
 import 'package:movies_app/features/watch_list/presentation/managers/watch_list_cubit/watch_list_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/managers/watch_list_notifier/watch_list_notifier_cubit.dart';
 

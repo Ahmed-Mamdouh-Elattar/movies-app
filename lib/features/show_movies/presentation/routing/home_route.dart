@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/config/app_color.dart';
 import 'package:movies_app/core/routing/page_name.dart';
-import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/core/di/service_locator.dart';
 import 'package:movies_app/features/ai_chat/presentation/routing/ai_chat_route.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movies_category_cubit/movies_category_cubit.dart';

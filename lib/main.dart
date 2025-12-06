@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/config/app_theme.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/core/routing/app_router.dart';
-import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/core/di/service_locator.dart';
 import 'package:movies_app/features/auth/presentation/managers/auth_cubit/auth_cubit.dart';
 import 'package:movies_app/firebase_options.dart';
 import 'package:movies_app/simple_bloc_observer.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_app/core/routing/page_name.dart';
-import 'package:movies_app/core/services/service_locator.dart';
+import 'package:movies_app/core/di/service_locator.dart';
 import 'package:movies_app/features/auth/presentation/managers/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/managers/social_auth_cubit/social_auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/pages/login_page.dart';
