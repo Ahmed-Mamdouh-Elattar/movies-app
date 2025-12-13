@@ -9,7 +9,7 @@ abstract class MoviesRepo {
     required String category,
     required int page,
   });
-  Future<ResponseResult<List<MoviesEntity>>> getRandomeMovies({
+  Future<ResponseResult<List<MoviesEntity>>> getRandomMovies({
     required int page,
   });
   Future<ResponseResult<MovieDetailsEntity>> getMovieDetails({

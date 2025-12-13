@@ -9,7 +9,7 @@ abstract class MoviesDataSource {
     required String category,
     required int page,
   });
-  Future<MoviesModel> getRandomeMovies({required int page});
+  Future<MoviesModel> getRandomMovies({required int page});
   Future<MovieDetailsModel> getMovieDetails({required int movieId});
   Future<MovieCastModel> getMovieCast({required int movieId});
   Future<MovieReviewsModel> getMovieReviews({required int movieId});
@@ -30,7 +30,7 @@ class MoviesDataSourceImpl implements MoviesDataSource {
   }
 
   @override
-  Future<MoviesModel> getRandomeMovies({required int page}) async {
+  Future<MoviesModel> getRandomMovies({required int page}) async {
     return await _apiService.getRandomeMovies(page: page);
   }
 

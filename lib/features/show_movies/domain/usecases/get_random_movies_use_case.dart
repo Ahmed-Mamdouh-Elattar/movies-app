@@ -8,6 +8,6 @@ class GetRandomMoviesUseCase {
   GetRandomMoviesUseCase(this._moviesRepo);
 
   Future<ResponseResult<List<MoviesEntity>>> call({required int page}) async {
-    return await _moviesRepo.getRandomeMovies(page: page);
+    return await _moviesRepo.getRandomMovies(page: page);
   }
 }

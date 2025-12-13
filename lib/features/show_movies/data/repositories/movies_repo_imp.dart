@@ -31,11 +31,11 @@ class MoviesRepoImp implements MoviesRepo {
   }
 
   @override
-  Future<ResponseResult<List<MoviesEntity>>> getRandomeMovies({
+  Future<ResponseResult<List<MoviesEntity>>> getRandomMovies({
     required int page,
   }) async {
     try {
-      final result = await _moviesDataSource.getRandomeMovies(page: page);
+      final result = await _moviesDataSource.getRandomMovies(page: page);
       return ResponseResult.success(result.toMoviesEntity());
     } on DioException catch (e) {
       return ResponseResult.failure(ServerFailure.fromDioError(e));
