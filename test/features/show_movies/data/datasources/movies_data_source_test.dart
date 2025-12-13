@@ -12,11 +12,11 @@ import 'movies_data_source_test.mocks.dart';
 
 @GenerateMocks([ApiService])
 void main() {
-  late ApiService apiService;
+  late ApiService mockApiService;
   late MoviesDataSource moviesDataSource;
   setUp(() {
-    apiService = MockApiService();
-    moviesDataSource = MoviesDataSourceImpl(apiService);
+    mockApiService = MockApiService();
+    moviesDataSource = MoviesDataSourceImpl(mockApiService);
   });
   group("testing MoviesDataSourceImpl class", () {
     group("getMoviesByCategory()", () {
@@ -33,7 +33,7 @@ void main() {
             page: 1,
           );
           when(
-            apiService.getMoviesByCategory(category: category, page: page),
+            mockApiService.getMoviesByCategory(category: category, page: page),
           ).thenAnswer((_) => Future.value(expectedMoviesModel));
 
           //act
@@ -45,9 +45,9 @@ void main() {
           //assert
           expect(result, expectedMoviesModel);
           verify(
-            apiService.getMoviesByCategory(category: category, page: page),
+            mockApiService.getMoviesByCategory(category: category, page: page),
           ).called(1);
-          verifyNoMoreInteractions(apiService);
+          verifyNoMoreInteractions(mockApiService);
         },
       );
       test("Should throw exception when getMoviesByCategory fails", () async {
@@ -56,7 +56,7 @@ void main() {
         int page = 1;
 
         when(
-          apiService.getMoviesByCategory(category: category, page: page),
+          mockApiService.getMoviesByCategory(category: category, page: page),
         ).thenAnswer((_) async => throw Exception());
 
         //act
@@ -66,9 +66,9 @@ void main() {
         //assert
         expect(result(), throwsException);
         verify(
-          apiService.getMoviesByCategory(category: category, page: page),
+          mockApiService.getMoviesByCategory(category: category, page: page),
         ).called(1);
-        verifyNoMoreInteractions(apiService);
+        verifyNoMoreInteractions(mockApiService);
       });
     });
 
@@ -85,7 +85,7 @@ void main() {
             page: 1,
           );
           when(
-            apiService.getRandomeMovies(page: page),
+            mockApiService.getRandomeMovies(page: page),
           ).thenAnswer((_) => Future.value(expectedMoviesModel));
 
           //act
@@ -93,8 +93,8 @@ void main() {
 
           //assert
           expect(result, expectedMoviesModel);
-          verify(apiService.getRandomeMovies(page: page)).called(1);
-          verifyNoMoreInteractions(apiService);
+          verify(mockApiService.getRandomeMovies(page: page)).called(1);
+          verifyNoMoreInteractions(mockApiService);
         },
       );
       test("Should throw exception when getRandomMovies fails", () async {
@@ -102,7 +102,7 @@ void main() {
         int page = 1;
 
         when(
-          apiService.getRandomeMovies(page: page),
+          mockApiService.getRandomeMovies(page: page),
         ).thenAnswer((_) async => throw Exception());
 
         //act
@@ -111,8 +111,8 @@ void main() {
 
         //assert
         expect(result(), throwsException);
-        verify(apiService.getRandomeMovies(page: page)).called(1);
-        verifyNoMoreInteractions(apiService);
+        verify(mockApiService.getRandomeMovies(page: page)).called(1);
+        verifyNoMoreInteractions(mockApiService);
       });
     });
 
@@ -124,7 +124,7 @@ void main() {
           int movieId = 1;
           final expectedMovieCastModel = MovieCastModel(cast: [], crew: []);
           when(
-            apiService.getMovieCast(movieId: movieId),
+            mockApiService.getMovieCast(movieId: movieId),
           ).thenAnswer((_) => Future.value(expectedMovieCastModel));
 
           //act
@@ -132,8 +132,8 @@ void main() {
 
           //assert
           expect(result, expectedMovieCastModel);
-          verify(apiService.getMovieCast(movieId: movieId)).called(1);
-          verifyNoMoreInteractions(apiService);
+          verify(mockApiService.getMovieCast(movieId: movieId)).called(1);
+          verifyNoMoreInteractions(mockApiService);
         },
       );
       test("Should throw exception when getMovieCast fails", () async {
@@ -141,7 +141,7 @@ void main() {
         int movieId = 1;
 
         when(
-          apiService.getMovieCast(movieId: movieId),
+          mockApiService.getMovieCast(movieId: movieId),
         ).thenAnswer((_) async => throw Exception());
 
         //act
@@ -150,8 +150,8 @@ void main() {
 
         //assert
         expect(result(), throwsException);
-        verify(apiService.getMovieCast(movieId: movieId)).called(1);
-        verifyNoMoreInteractions(apiService);
+        verify(mockApiService.getMovieCast(movieId: movieId)).called(1);
+        verifyNoMoreInteractions(mockApiService);
       });
     });
 
@@ -188,7 +188,7 @@ void main() {
             voteCount: 0,
           );
           when(
-            apiService.getMovieDetails(movieId: movieId),
+            mockApiService.getMovieDetails(movieId: movieId),
           ).thenAnswer((_) => Future.value(expectedMovieDetailsModel));
 
           //act
@@ -198,8 +198,8 @@ void main() {
 
           //assert
           expect(result, expectedMovieDetailsModel);
-          verify(apiService.getMovieDetails(movieId: movieId)).called(1);
-          verifyNoMoreInteractions(apiService);
+          verify(mockApiService.getMovieDetails(movieId: movieId)).called(1);
+          verifyNoMoreInteractions(mockApiService);
         },
       );
       test("Should throw exception when getMovieDetails fails", () async {
@@ -207,7 +207,7 @@ void main() {
         int movieId = 1;
 
         when(
-          apiService.getMovieDetails(movieId: movieId),
+          mockApiService.getMovieDetails(movieId: movieId),
         ).thenAnswer((_) async => throw Exception());
 
         //act
@@ -216,8 +216,8 @@ void main() {
 
         //assert
         expect(result(), throwsException);
-        verify(apiService.getMovieDetails(movieId: movieId)).called(1);
-        verifyNoMoreInteractions(apiService);
+        verify(mockApiService.getMovieDetails(movieId: movieId)).called(1);
+        verifyNoMoreInteractions(mockApiService);
       });
     });
 
@@ -234,7 +234,7 @@ void main() {
             page: 1,
           );
           when(
-            apiService.getMovieReviews(movieId: movieId),
+            mockApiService.getMovieReviews(movieId: movieId),
           ).thenAnswer((_) => Future.value(expectedMovieReviewsModel));
 
           //act
@@ -244,8 +244,8 @@ void main() {
 
           //assert
           expect(result, expectedMovieReviewsModel);
-          verify(apiService.getMovieReviews(movieId: movieId)).called(1);
-          verifyNoMoreInteractions(apiService);
+          verify(mockApiService.getMovieReviews(movieId: movieId)).called(1);
+          verifyNoMoreInteractions(mockApiService);
         },
       );
       test("Should throw exception when getMovieReviews fails", () async {
@@ -253,7 +253,7 @@ void main() {
         int movieId = 1;
 
         when(
-          apiService.getMovieReviews(movieId: movieId),
+          mockApiService.getMovieReviews(movieId: movieId),
         ).thenAnswer((_) async => throw Exception());
 
         //act
@@ -262,8 +262,8 @@ void main() {
 
         //assert
         expect(result(), throwsException);
-        verify(apiService.getMovieReviews(movieId: movieId)).called(1);
-        verifyNoMoreInteractions(apiService);
+        verify(mockApiService.getMovieReviews(movieId: movieId)).called(1);
+        verifyNoMoreInteractions(mockApiService);
       });
     });
   });
