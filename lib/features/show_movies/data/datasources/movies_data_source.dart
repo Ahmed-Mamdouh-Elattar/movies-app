@@ -23,49 +23,29 @@ class MoviesDataSourceImpl implements MoviesDataSource {
     required String category,
     required int page,
   }) async {
-    try {
-      return await _apiService.getMoviesByCategory(
-        category: category,
-        page: page,
-      );
-    } on Exception {
-      rethrow;
-    }
+    return await _apiService.getMoviesByCategory(
+      category: category,
+      page: page,
+    );
   }
 
   @override
   Future<MoviesModel> getRandomeMovies({required int page}) async {
-    try {
-      return await _apiService.getRandomeMovies(page: page);
-    } on Exception {
-      rethrow;
-    }
+    return await _apiService.getRandomeMovies(page: page);
   }
 
   @override
   Future<MovieCastModel> getMovieCast({required int movieId}) async {
-    try {
-      return await _apiService.getMovieCast(movieId: movieId);
-    } on Exception {
-      rethrow;
-    }
+    return await _apiService.getMovieCast(movieId: movieId);
   }
 
   @override
   Future<MovieDetailsModel> getMovieDetails({required int movieId}) async {
-    try {
-      return await _apiService.getMovieDetails(movieId: movieId);
-    } on Exception {
-      rethrow;
-    }
+    return await _apiService.getMovieDetails(movieId: movieId);
   }
 
   @override
   Future<MovieReviewsModel> getMovieReviews({required int movieId}) async {
-    try {
-      return await _apiService.getMovieReviews(movieId: movieId);
-    } on Exception {
-      rethrow;
-    }
+    return await _apiService.getMovieReviews(movieId: movieId);
   }
 }
