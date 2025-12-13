@@ -56,12 +56,14 @@ dependencies:
   skeletonizer: ^2.1.0+1
 
 dev_dependencies:
+  mockito: ^5.6.1
   build_runner: ^2.9.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   freezed: ^3.2.3
   retrofit_generator: ^10.0.6
+  test: ^1.26.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
