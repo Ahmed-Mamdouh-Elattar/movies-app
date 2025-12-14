@@ -89,7 +89,7 @@ void main() {
           ).thenAnswer((_) => Future.value(expectedMoviesModel));
 
           //act
-          final result = await moviesDataSource.getRandomeMovies(page: page);
+          final result = await moviesDataSource.getRandomMovies(page: page);
 
           //assert
           expect(result, expectedMoviesModel);
@@ -107,7 +107,7 @@ void main() {
 
         //act
         Future<MoviesModel> result() async =>
-            await moviesDataSource.getRandomeMovies(page: page);
+            await moviesDataSource.getRandomMovies(page: page);
 
         //assert
         expect(result(), throwsException);
