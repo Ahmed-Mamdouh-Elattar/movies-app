@@ -10,7 +10,9 @@ class CustomReviewsBuilder extends HookWidget {
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      context.read<MovieDetailsCubit>().getMovieReviews();
+      context.read<MovieDetailsCubit>().getMovieReviews(
+        movieDetails: context.read<MovieDetailsCubit>().movieDetails,
+      );
       return null;
     }, []);
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(

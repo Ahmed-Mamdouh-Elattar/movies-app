@@ -20,7 +20,7 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
   final GetMovieDetailsUseCase _getMovieDetailsUseCase;
   final GetMovieCastUseCase _getMovieCastUseCase;
   final GetMovieReviewsUseCase _getMovieReviewsUseCase;
-  late final MovieDetailsEntity _movieDetails;
+  late final MovieDetailsEntity movieDetails;
   List<MovieCastEntity> _movieCast = [];
   List<MovieReviewsEntity> _movieReviews = [];
 
@@ -29,7 +29,7 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
     final result = await _getMovieDetailsUseCase.call(movieId: movieId);
     result.when(
       success: (movieDetails) {
-        _movieDetails = movieDetails;
+        this.movieDetails = movieDetails;
 
         safeEmit(
           MovieDetailsState.loaded(
@@ -51,9 +51,9 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
     );
   }
 
-  Future<void> getMovieCast() async {
+  Future<void> getMovieCast({required MovieDetailsEntity movieDetails}) async {
     safeEmit(const MovieDetailsState.loading(isMovieCast: true));
-    final result = await _getMovieCastUseCase.call(movieId: _movieDetails.id);
+    final result = await _getMovieCastUseCase.call(movieId: movieDetails.id);
     result.when(
       success: (movieCast) {
         _movieCast = movieCast;
@@ -61,7 +61,7 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
           MovieDetailsState.loaded(
             movieCast: movieCast,
             isMovieCast: true,
-            movieDetails: _movieDetails,
+            movieDetails: movieDetails,
             movieReviews: _movieReviews,
           ),
         );
@@ -77,11 +77,11 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
     );
   }
 
-  Future<void> getMovieReviews() async {
+  Future<void> getMovieReviews({
+    required MovieDetailsEntity movieDetails,
+  }) async {
     safeEmit(const MovieDetailsState.loading(isMovieReviews: true));
-    final result = await _getMovieReviewsUseCase.call(
-      movieId: _movieDetails.id,
-    );
+    final result = await _getMovieReviewsUseCase.call(movieId: movieDetails.id);
 
     result.when(
       success: (movieReviews) {
@@ -90,7 +90,7 @@ class MovieDetailsCubit extends BaseCubit<MovieDetailsState> {
           MovieDetailsState.loaded(
             movieReviews: movieReviews,
             isMovieReviews: true,
-            movieDetails: _movieDetails,
+            movieDetails: movieDetails,
             movieCast: _movieCast,
           ),
         );

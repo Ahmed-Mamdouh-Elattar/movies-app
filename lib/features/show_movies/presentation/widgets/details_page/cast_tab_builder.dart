@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movies_app/features/show_movies/presentation/managers/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/show_movies/presentation/widgets/details_page/cast_tab_grid_view.dart';
 
-class CastTabBuilder extends StatefulWidget {
+class CastTabBuilder extends HookWidget {
   const CastTabBuilder({super.key});
 
   @override
-  State<CastTabBuilder> createState() => _CastTabBuilderState();
-}
-
-class _CastTabBuilderState extends State<CastTabBuilder> {
-  @override
-  void initState() {
-    context.read<MovieDetailsCubit>().getMovieCast();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      context.read<MovieDetailsCubit>().getMovieCast(
+        movieDetails: context.read<MovieDetailsCubit>().movieDetails,
+      );
+      return null;
+    }, []);
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
       buildWhen: (previous, current) {
         if (current.isMovieCast) {
