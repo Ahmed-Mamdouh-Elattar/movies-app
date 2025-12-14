@@ -23,9 +23,27 @@ void main() {
   late MoviesDataSource mockMoviesDataSource;
   late MoviesRepo moviesRepo;
 
-  setUp(() {
+  const tCategory = "action";
+  const tPage = 1;
+  const tMovieId = 1;
+  final tFailure = DioException(
+    requestOptions: RequestOptions(),
+    message: "message",
+    type: DioExceptionType.connectionError,
+  );
+  final tServerFailure = ServerFailure.fromDioError(tFailure);
+
+  setUpAll(() {
     mockMoviesDataSource = MockMoviesDataSource();
     moviesRepo = MoviesRepoImp(mockMoviesDataSource);
+  });
+
+  setUp(() {
+    reset(mockMoviesDataSource);
+  });
+
+  tearDown(() {
+    verifyNoMoreInteractions(mockMoviesDataSource);
   });
 
   group("testing MoviesRepoImp class", () {
@@ -34,77 +52,66 @@ void main() {
         'should return ResponseResult<List<MoviesEntity>> when success',
         () async {
           // arrange
-          String category = "action";
-          int page = 1;
           final expectedValue = const ResponseResult.success(<MoviesEntity>[]);
           when(
             mockMoviesDataSource.getMoviesByCategory(
-              category: category,
-              page: page,
+              category: tCategory,
+              page: tPage,
             ),
           ).thenAnswer(
             (_) async => MoviesModel(
               results: [],
               totalPages: 0,
               totalResults: 0,
-              page: page,
+              page: tPage,
             ),
           );
 
           // act
           final result = await moviesRepo.getMoviesByCategory(
-            category: category,
-            page: page,
+            category: tCategory,
+            page: tPage,
           );
 
           // assert
           expect(result, expectedValue);
           verify(
             mockMoviesDataSource.getMoviesByCategory(
-              category: category,
-              page: page,
+              category: tCategory,
+              page: tPage,
             ),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
       test(
         'should return ResponseResult<List<MoviesEntity>> when failure',
         () async {
           // arrange
-          String category = "action";
-          int page = 1;
-          final failure = DioException(
-            requestOptions: RequestOptions(),
-            message: "message",
-            type: DioExceptionType.connectionError,
-          );
           final expectedValue = ResponseResult<List<MoviesEntity>>.failure(
-            ServerFailure.fromDioError(failure),
+            tServerFailure,
           );
           when(
             mockMoviesDataSource.getMoviesByCategory(
-              category: category,
-              page: page,
+              category: tCategory,
+              page: tPage,
             ),
-          ).thenAnswer((_) async => throw failure);
+          ).thenAnswer((_) async => throw tFailure);
 
           // act
           Future<ResponseResult<List<MoviesEntity>>> result() async =>
               await moviesRepo.getMoviesByCategory(
-                category: category,
-                page: page,
+                category: tCategory,
+                page: tPage,
               );
 
           // assert
           expect(await result(), expectedValue);
           verify(
             mockMoviesDataSource.getMoviesByCategory(
-              category: category,
-              page: page,
+              category: tCategory,
+              page: tPage,
             ),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
     });
@@ -113,51 +120,42 @@ void main() {
         'should return ResponseResult<List<MoviesEntity>> when success',
         () async {
           // arrange
-          int page = 1;
           final expectedValue = const ResponseResult.success(<MoviesEntity>[]);
-          when(mockMoviesDataSource.getRandomMovies(page: page)).thenAnswer(
+          when(mockMoviesDataSource.getRandomMovies(page: tPage)).thenAnswer(
             (_) async => MoviesModel(
               results: [],
               totalPages: 0,
               totalResults: 0,
-              page: page,
+              page: tPage,
             ),
           );
 
           // act
-          final result = await moviesRepo.getRandomMovies(page: page);
+          final result = await moviesRepo.getRandomMovies(page: tPage);
 
           // assert
           expect(result, expectedValue);
-          verify(mockMoviesDataSource.getRandomMovies(page: page)).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
+          verify(mockMoviesDataSource.getRandomMovies(page: tPage)).called(1);
         },
       );
       test(
         'should return ResponseResult<List<MoviesEntity>> when failure',
         () async {
           // arrange
-          int page = 1;
-          final failure = DioException(
-            requestOptions: RequestOptions(),
-            message: "message",
-            type: DioExceptionType.connectionError,
-          );
           final expectedValue = ResponseResult<List<MoviesEntity>>.failure(
-            ServerFailure.fromDioError(failure),
+            tServerFailure,
           );
           when(
-            mockMoviesDataSource.getRandomMovies(page: page),
-          ).thenAnswer((_) async => throw failure);
+            mockMoviesDataSource.getRandomMovies(page: tPage),
+          ).thenAnswer((_) async => throw tFailure);
 
           // act
           Future<ResponseResult<List<MoviesEntity>>> result() async =>
-              await moviesRepo.getRandomMovies(page: page);
+              await moviesRepo.getRandomMovies(page: tPage);
 
           // assert
           expect(await result(), expectedValue);
-          verify(mockMoviesDataSource.getRandomMovies(page: page)).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
+          verify(mockMoviesDataSource.getRandomMovies(page: tPage)).called(1);
         },
       );
     });
@@ -166,48 +164,43 @@ void main() {
         'should return ResponseResult<List<MovieCastEntity>> when success',
         () async {
           // arrange
-          int movieId = 1;
           final expectedValue = const ResponseResult.success(
             <MovieCastEntity>[],
           );
           when(
-            mockMoviesDataSource.getMovieCast(movieId: movieId),
+            mockMoviesDataSource.getMovieCast(movieId: tMovieId),
           ).thenAnswer((_) async => MovieCastModel(cast: [], crew: []));
 
           // act
-          final result = await moviesRepo.getMovieCast(movieId: movieId);
+          final result = await moviesRepo.getMovieCast(movieId: tMovieId);
 
           // assert
           expect(result, expectedValue);
-          verify(mockMoviesDataSource.getMovieCast(movieId: movieId)).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
+          verify(
+            mockMoviesDataSource.getMovieCast(movieId: tMovieId),
+          ).called(1);
         },
       );
       test(
         'should return ResponseResult<List<MovieCastEntity>> when failure',
         () async {
           // arrange
-          int movieId = 1;
-          final failure = DioException(
-            requestOptions: RequestOptions(),
-            message: "message",
-            type: DioExceptionType.connectionError,
-          );
           final expectedValue = ResponseResult<List<MovieCastEntity>>.failure(
-            ServerFailure.fromDioError(failure),
+            tServerFailure,
           );
           when(
-            mockMoviesDataSource.getMovieCast(movieId: movieId),
-          ).thenAnswer((_) async => throw failure);
+            mockMoviesDataSource.getMovieCast(movieId: tMovieId),
+          ).thenAnswer((_) async => throw tFailure);
 
           // act
           Future<ResponseResult<List<MovieCastEntity>>> result() async =>
-              await moviesRepo.getMovieCast(movieId: movieId);
+              await moviesRepo.getMovieCast(movieId: tMovieId);
 
           // assert
           expect(await result(), expectedValue);
-          verify(mockMoviesDataSource.getMovieCast(movieId: movieId)).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
+          verify(
+            mockMoviesDataSource.getMovieCast(movieId: tMovieId),
+          ).called(1);
         },
       );
     });
@@ -216,14 +209,13 @@ void main() {
         'should return ResponseResult<MovieDetailsEntity> when success',
         () async {
           // arrange
-          int movieId = 1;
-          MovieDetailsModel movieDetailsModel = MovieDetailsModel(id: movieId);
+          MovieDetailsModel movieDetailsModel = MovieDetailsModel(id: tMovieId);
           when(
-            mockMoviesDataSource.getMovieDetails(movieId: movieId),
+            mockMoviesDataSource.getMovieDetails(movieId: tMovieId),
           ).thenAnswer((_) async => movieDetailsModel);
 
           // act
-          final result = await moviesRepo.getMovieDetails(movieId: movieId);
+          final result = await moviesRepo.getMovieDetails(movieId: tMovieId);
 
           // assert
           expect(
@@ -238,38 +230,30 @@ void main() {
             ),
           );
           verify(
-            mockMoviesDataSource.getMovieDetails(movieId: movieId),
+            mockMoviesDataSource.getMovieDetails(movieId: tMovieId),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
       test(
         'should return ResponseResult<MovieDetailsEntity> when failure',
         () async {
           // arrange
-          int movieId = 1;
-          final failure = DioException(
-            requestOptions: RequestOptions(),
-            message: "message",
-            type: DioExceptionType.connectionError,
-          );
           final expectedValue = ResponseResult<MovieDetailsEntity>.failure(
-            ServerFailure.fromDioError(failure),
+            tServerFailure,
           );
           when(
-            mockMoviesDataSource.getMovieDetails(movieId: movieId),
-          ).thenAnswer((_) async => throw failure);
+            mockMoviesDataSource.getMovieDetails(movieId: tMovieId),
+          ).thenAnswer((_) async => throw tFailure);
 
           // act
           Future<ResponseResult<MovieDetailsEntity>> result() async =>
-              await moviesRepo.getMovieDetails(movieId: movieId);
+              await moviesRepo.getMovieDetails(movieId: tMovieId);
 
           // assert
           expect(await result(), expectedValue);
           verify(
-            mockMoviesDataSource.getMovieDetails(movieId: movieId),
+            mockMoviesDataSource.getMovieDetails(movieId: tMovieId),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
     });
@@ -278,53 +262,42 @@ void main() {
         'should return ResponseResult<List<MovieReviewsEntity>> when success',
         () async {
           // arrange
-          int movieId = 1;
           final expectedValue = const ResponseResult.success(
             <MovieReviewsEntity>[],
           );
           when(
-            mockMoviesDataSource.getMovieReviews(movieId: movieId),
-          ).thenAnswer((_) async => MovieReviewsModel(id: movieId));
+            mockMoviesDataSource.getMovieReviews(movieId: tMovieId),
+          ).thenAnswer((_) async => MovieReviewsModel(id: tMovieId));
 
           // act
-          final result = await moviesRepo.getMovieReviews(movieId: movieId);
+          final result = await moviesRepo.getMovieReviews(movieId: tMovieId);
 
           // assert
           expect(result, expectedValue);
           verify(
-            mockMoviesDataSource.getMovieReviews(movieId: movieId),
+            mockMoviesDataSource.getMovieReviews(movieId: tMovieId),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
       test(
         'should return ResponseResult<List<MovieReviewEntity>> when failure',
         () async {
           // arrange
-          int movieId = 1;
-          final failure = DioException(
-            requestOptions: RequestOptions(),
-            message: "message",
-            type: DioExceptionType.connectionError,
-          );
           final expectedValue =
-              ResponseResult<List<MovieReviewsEntity>>.failure(
-                ServerFailure.fromDioError(failure),
-              );
+              ResponseResult<List<MovieReviewsEntity>>.failure(tServerFailure);
           when(
-            mockMoviesDataSource.getMovieReviews(movieId: movieId),
-          ).thenAnswer((_) async => throw failure);
+            mockMoviesDataSource.getMovieReviews(movieId: tMovieId),
+          ).thenAnswer((_) async => throw tFailure);
 
           // act
           Future<ResponseResult<List<MovieReviewsEntity>>> result() async =>
-              await moviesRepo.getMovieReviews(movieId: movieId);
+              await moviesRepo.getMovieReviews(movieId: tMovieId);
 
           // assert
           expect(await result(), expectedValue);
           verify(
-            mockMoviesDataSource.getMovieReviews(movieId: movieId),
+            mockMoviesDataSource.getMovieReviews(movieId: tMovieId),
           ).called(1);
-          verifyNoMoreInteractions(mockMoviesDataSource);
         },
       );
     });

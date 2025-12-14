@@ -87,11 +87,11 @@ class MockMoviesDataSource extends _i1.Mock implements _i6.MoviesDataSource {
   @override
   _i7.Future<_i2.MoviesModel> getRandomMovies({required int? page}) =>
       (super.noSuchMethod(
-            Invocation.method(#getRandomeMovies, [], {#page: page}),
+            Invocation.method(#getRandomMovies, [], {#page: page}),
             returnValue: _i7.Future<_i2.MoviesModel>.value(
               _FakeMoviesModel_0(
                 this,
-                Invocation.method(#getRandomeMovies, [], {#page: page}),
+                Invocation.method(#getRandomMovies, [], {#page: page}),
               ),
             ),
           )
