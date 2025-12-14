@@ -56,5 +56,6 @@ class MoviesCategoryCubit extends Cubit<MoviesCategoryState> {
     _page = 1;
     _hasMore = true;
     _moveies.clear();
+    emit(const MoviesCategoryState.initial());
   }
 }
