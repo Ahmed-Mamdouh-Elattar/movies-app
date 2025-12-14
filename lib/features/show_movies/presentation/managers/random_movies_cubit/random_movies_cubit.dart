@@ -48,5 +48,6 @@ class RandomMoviesCubit extends Cubit<RandomMoviesState> {
     _page = 1;
     _hasMore = true;
     _moveies.clear();
+    emit(const RandomMoviesState.initial());
   }
 }
