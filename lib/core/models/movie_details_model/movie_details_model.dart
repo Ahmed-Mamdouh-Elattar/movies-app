@@ -159,12 +159,12 @@ class MovieDetailsModel {
       id: id ?? 0,
       poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",
       backDrop: backdropPath == null ? "" : "$kBaseImageURL${backdropPath!}",
-      title: title!,
-      voting: voteAverage!,
+      title: title ?? "",
+      voting: voteAverage ?? 0,
       duration: runtime.toString(),
       date: releaseDate.toString(),
-      overview: overview!,
-      genres: genres!.map((e) => e.name!).toList(),
+      overview: overview ?? "",
+      genres: genres?.map((e) => e.name!).toList() ?? [],
     );
   }
 
@@ -172,11 +172,11 @@ class MovieDetailsModel {
     return MovieWatchListEntity(
       id: id ?? 0,
       poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",
-      title: title!,
-      voting: voteAverage!,
+      title: title ?? "",
+      voting: voteAverage ?? 0,
       duration: runtime.toString(),
       date: releaseDate.toString(),
-      genres: genres!.map((e) => e.name!).toList(),
+      genres: genres?.map((e) => e.name!).toList() ?? [],
     );
   }
 }

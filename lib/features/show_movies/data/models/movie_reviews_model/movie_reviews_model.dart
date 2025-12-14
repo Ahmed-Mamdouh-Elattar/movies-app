@@ -40,18 +40,19 @@ class MovieReviewsModel {
     "total_results": totalResults,
   };
   List<MovieReviewsEntity> toEntity() {
-    return results!
-        .map(
-          (e) => MovieReviewsEntity(
-            rating: e.authorDetails!.rating,
-            author: e.author!,
-            avatar: e.authorDetails?.avatarPath != null
-                ? "$kBaseImageURL${e.authorDetails?.avatarPath}"
-                : kFakeImage,
+    return results
+            ?.map(
+              (e) => MovieReviewsEntity(
+                rating: e.authorDetails!.rating,
+                author: e.author!,
+                avatar: e.authorDetails?.avatarPath != null
+                    ? "$kBaseImageURL${e.authorDetails?.avatarPath}"
+                    : kFakeImage,
 
-            content: e.content!,
-          ),
-        )
-        .toList();
+                content: e.content!,
+              ),
+            )
+            .toList() ??
+        [];
   }
 }
