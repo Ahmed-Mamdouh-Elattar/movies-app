@@ -6,13 +6,13 @@ import 'package:movies_app/features/search/domain/entities/search_movies_entity.
 import 'package:movies_app/features/search/presentation/managers/search_cubit/search_cubit.dart';
 import 'package:movies_app/features/search/presentation/widgets/movie_card.dart';
 
-class SearchResultList extends StatelessWidget {
+class SearchResultList extends HookWidget {
   const SearchResultList({required this.movies, super.key});
   final List<SearchMoviesEntity> movies;
 
   @override
   Widget build(BuildContext context) {
-    final controller = ScrollController();
+    final controller = useScrollController();
     useEffect(() {
       controller.addListener(() {
         if (controller.position.pixels >=
