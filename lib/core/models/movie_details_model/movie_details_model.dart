@@ -154,7 +154,7 @@ class MovieDetailsModel {
     "vote_average": voteAverage,
     "vote_count": voteCount,
   };
-  MovieDetailsEntity toEntity() {
+  MovieDetailsEntity toMovieDetailsEntity() {
     return MovieDetailsEntity(
       id: id ?? 0,
       poster: posterPath == null ? "" : "$kBaseImageURL${posterPath!}",

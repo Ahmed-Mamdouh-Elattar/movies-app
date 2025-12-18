@@ -64,7 +64,7 @@ class MoviesRepoImp implements MoviesRepo {
   }) async {
     try {
       final result = await _moviesDataSource.getMovieDetails(movieId: movieId);
-      return ResponseResult.success(result.toEntity());
+      return ResponseResult.success(result.toMovieDetailsEntity());
     } on DioException catch (e) {
       return ResponseResult.failure(ServerFailure.fromDioError(e));
     } on Exception catch (e) {
