@@ -10,35 +10,36 @@ part 'watch_list_state.dart';
 part 'watch_list_cubit.freezed.dart';
 
 class WatchListCubit extends Cubit<WatchListState> {
-  WatchListCubit(this._getMoviesWatchListUseCase)
-    : super(const WatchListState.initial());
+  WatchListCubit(
+    this._getMoviesWatchListUseCase,
+    this._sharedPreferencesService,
+  ) : super(const WatchListState.initial());
   final GetMoviesWatchListUseCase _getMoviesWatchListUseCase;
+  final SharedPreferencesService _sharedPreferencesService;
 
-  Future<void> addOrDeleteMovieToWatchList(String movieId) async {
-    final moviesWatchList = SharedPreferencesService().getList(
+  void addOrDeleteMovieToWatchList(String movieId) {
+    final moviesWatchList = _sharedPreferencesService.getList(
       key: kWatchListKey,
     );
     if (moviesWatchList.contains(movieId)) {
       moviesWatchList.remove(movieId);
-
-      SharedPreferencesService().setList(
-        key: kWatchListKey,
-        value: moviesWatchList,
-      );
     } else {
       moviesWatchList.add(movieId);
-      SharedPreferencesService().setList(
-        key: kWatchListKey,
-        value: moviesWatchList,
-      );
     }
-    await isMovieExistedInWatchList(movieId);
+    _sharedPreferencesService.setList(
+      key: kWatchListKey,
+      value: moviesWatchList,
+    );
+    isMovieExistedInWatchList(movieId, moviesWatchList);
   }
 
-  Future<void> isMovieExistedInWatchList(String movieId) async {
-    final moviesWatchList = SharedPreferencesService().getList(
-      key: kWatchListKey,
-    );
+  void isMovieExistedInWatchList(String movieId, [List<String>? moviesIds]) {
+    late final List<String> moviesWatchList;
+    if (moviesIds == null) {
+      moviesWatchList = _sharedPreferencesService.getList(key: kWatchListKey);
+    } else {
+      moviesWatchList = moviesIds;
+    }
     if (moviesWatchList.contains(movieId)) {
       emit(const WatchListState.addOrDeleteMovieSuccess(isExisted: true));
     } else {

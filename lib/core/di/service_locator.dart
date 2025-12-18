@@ -156,7 +156,10 @@ Future<void> setUpServiceLocator() async {
     () => GetMoviesWatchListUseCase(getIt.get<WatchListRepoImpl>()),
   );
   getIt.registerFactory<WatchListCubit>(
-    () => WatchListCubit(getIt.get<GetMoviesWatchListUseCase>()),
+    () => WatchListCubit(
+      getIt.get<GetMoviesWatchListUseCase>(),
+      SharedPreferencesService(),
+    ),
   );
   getIt.registerFactory<AiChatSourceImpl>(() => AiChatSourceImpl());
   getIt.registerFactory<AiChatRepoImpl>(
