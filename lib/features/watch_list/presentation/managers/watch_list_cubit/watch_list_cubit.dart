@@ -15,19 +15,19 @@ class WatchListCubit extends Cubit<WatchListState> {
   final GetMoviesWatchListUseCase _getMoviesWatchListUseCase;
 
   Future<void> addOrDeleteMovieToWatchList(String movieId) async {
-    final moviesWatchList = await SharedPreferencesService.getList(
+    final moviesWatchList = SharedPreferencesService().getList(
       key: kWatchListKey,
     );
     if (moviesWatchList.contains(movieId)) {
       moviesWatchList.remove(movieId);
 
-      await SharedPreferencesService.setList(
+      SharedPreferencesService().setList(
         key: kWatchListKey,
         value: moviesWatchList,
       );
     } else {
       moviesWatchList.add(movieId);
-      await SharedPreferencesService.setList(
+      SharedPreferencesService().setList(
         key: kWatchListKey,
         value: moviesWatchList,
       );
@@ -36,7 +36,7 @@ class WatchListCubit extends Cubit<WatchListState> {
   }
 
   Future<void> isMovieExistedInWatchList(String movieId) async {
-    final moviesWatchList = await SharedPreferencesService.getList(
+    final moviesWatchList = SharedPreferencesService().getList(
       key: kWatchListKey,
     );
     if (moviesWatchList.contains(movieId)) {

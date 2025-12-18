@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_app/core/networking/dio/dio_object.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/core/networking/network_info/network_info.dart';
+import 'package:movies_app/core/services/shared_preferences/shared_preferences_service.dart';
 import 'package:movies_app/features/ai_chat/data/datasources/ai_chat_source.dart';
 import 'package:movies_app/features/ai_chat/data/repositories/ai_chat_repo_impl.dart';
 import 'package:movies_app/features/ai_chat/domain/usecases/get_ai_chat_response_use_case.dart';
@@ -42,9 +43,13 @@ import 'package:movies_app/features/watch_list/data/repositories/watch_list_repo
 import 'package:movies_app/features/watch_list/domain/usecases/get_movies_watch_list_use_case.dart';
 import 'package:movies_app/features/watch_list/presentation/managers/watch_list_cubit/watch_list_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/managers/watch_list_notifier/watch_list_notifier_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
-void setUpServiceLocator() {
+Future<void> setUpServiceLocator() async {
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   getIt.registerLazySingleton<GoogleAuthRepoImp>(() => GoogleAuthRepoImp());
   getIt.registerLazySingleton<SignInOrUpWithGoogleUseCase>(
     () => SignInOrUpWithGoogleUseCase(getIt<GoogleAuthRepoImp>()),
@@ -139,7 +144,10 @@ void setUpServiceLocator() {
     () => SearchCubit(getIt.get<SearchUseCase>()),
   );
   getIt.registerLazySingleton<WatchListMoviesSource>(
-    () => WatchListMoviesSource(getIt.get<ApiService>()),
+    () => WatchListMoviesSource(
+      getIt.get<ApiService>(),
+      SharedPreferencesService(),
+    ),
   );
   getIt.registerLazySingleton<WatchListRepoImpl>(
     () => WatchListRepoImpl(getIt.get<WatchListMoviesSource>()),

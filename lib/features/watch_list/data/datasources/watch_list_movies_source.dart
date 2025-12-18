@@ -5,10 +5,10 @@ import 'package:movies_app/core/services/shared_preferences/shared_preferences_s
 
 class WatchListMoviesSource {
   final ApiService _apiService;
-
-  WatchListMoviesSource(this._apiService);
+  final SharedPreferencesService _sharedPreferencesService;
+  WatchListMoviesSource(this._apiService, this._sharedPreferencesService);
   Future<List<MovieDetailsModel>> getWatchListMovies() async {
-    List moviesWatchListIds = await SharedPreferencesService.getList(
+    final moviesWatchListIds = _sharedPreferencesService.getList(
       key: kWatchListKey,
     );
     if (moviesWatchListIds.isEmpty) {
