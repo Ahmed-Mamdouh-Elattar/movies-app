@@ -6,9 +6,15 @@ import 'package:movies_app/features/search/data/datasources/search_data_source.d
 import 'package:movies_app/features/search/domain/entities/search_movies_entity.dart';
 import 'package:movies_app/features/search/domain/repositories/search_repo.dart';
 
+typedef CancelTokenFactory = CancelToken Function();
+
 class SearchRepoImpl implements SearchRepo {
   final SearchDataSource _searchDataSource;
-  SearchRepoImpl(this._searchDataSource);
+  final CancelTokenFactory _cancelTokenFactory;
+  SearchRepoImpl(
+    this._searchDataSource, [
+    CancelTokenFactory? cancelTokenFactory,
+  ]) : _cancelTokenFactory = cancelTokenFactory ?? (() => CancelToken());
   CancelToken? _cancelToken;
   void _cancelSearchRequest() {
     if (_cancelToken != null && !_cancelToken!.isCancelled) {
@@ -22,7 +28,7 @@ class SearchRepoImpl implements SearchRepo {
     required int page,
   }) async {
     _cancelSearchRequest();
-    _cancelToken = CancelToken();
+    _cancelToken = _cancelTokenFactory();
     try {
       final response = await _searchDataSource.searchMovies(
         query: query,
