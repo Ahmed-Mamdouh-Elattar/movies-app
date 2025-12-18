@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movies_app/core/helper/constants.dart';
 import 'package:movies_app/core/models/movie_details_model/movie_details_model.dart';
@@ -8,9 +7,8 @@ import 'package:movies_app/core/services/shared_preferences/shared_preferences_s
 import 'package:movies_app/features/watch_list/data/datasources/watch_list_movies_source.dart';
 
 import '../../../../core/mocks/api_service.mocks.dart';
-import 'watch_list_movies_source_test.mocks.dart';
+import '../../../../core/services/shared_preferences/shared_preferences_service_test.mocks.dart';
 
-@GenerateMocks([SharedPreferencesService])
 void main() {
   late SharedPreferencesService sharedPreferencesService;
   late ApiService apiService;
