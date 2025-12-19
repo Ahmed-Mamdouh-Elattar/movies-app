@@ -7,10 +7,10 @@ import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/data/repositories/google_auth_repo_imp.dart';
 
+import '../../../../core/mocks/firebase_auth/firebase_auth.mocks.dart';
 import 'google_auth_repo_imp_test.mocks.dart';
 
 @GenerateMocks([
-  FirebaseAuth,
   GoogleSignIn,
   UserCredential,
   GoogleSignInAccount,

@@ -7,9 +7,10 @@ import 'package:movies_app/core/errors/failures.dart';
 import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/data/repositories/facebook_auth_repo_impl.dart';
 
+import '../../../../core/mocks/firebase_auth/firebase_auth.mocks.dart';
 import 'facebook_auth_repo_impl_test.mocks.dart';
 
-@GenerateMocks([FirebaseAuth, FacebookAuth, UserCredential])
+@GenerateMocks([FacebookAuth, UserCredential])
 void main() {
   late MockFirebaseAuth firebaseAuth;
   late MockFacebookAuth facebookAuth;

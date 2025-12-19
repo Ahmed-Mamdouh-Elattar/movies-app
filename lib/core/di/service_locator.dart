@@ -73,7 +73,9 @@ Future<void> setUpServiceLocator() async {
       getIt<SignInOrUpWithFacebookUseCase>(),
     ),
   );
-  getIt.registerLazySingleton<PhoneAuthRepoImpl>(() => PhoneAuthRepoImpl());
+  getIt.registerLazySingleton<PhoneAuthRepoImpl>(
+    () => PhoneAuthRepoImpl(auth: FirebaseAuth.instance),
+  );
   getIt.registerLazySingleton<SendCodeUseCase>(
     () => SendCodeUseCase(getIt<PhoneAuthRepoImpl>()),
   );
