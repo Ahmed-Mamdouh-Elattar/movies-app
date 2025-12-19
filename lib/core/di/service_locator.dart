@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movies_app/core/networking/dio/dio_object.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
 import 'package:movies_app/core/networking/network_info/network_info.dart';
@@ -51,7 +52,12 @@ Future<void> setUpServiceLocator() async {
   final SharedPreferences sharedPreferences =
       await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  getIt.registerLazySingleton<GoogleAuthRepoImp>(() => GoogleAuthRepoImp());
+  getIt.registerLazySingleton<GoogleAuthRepoImp>(
+    () => GoogleAuthRepoImp(
+      googleSignIn: GoogleSignIn.instance,
+      firebaseAuth: FirebaseAuth.instance,
+    ),
+  );
   getIt.registerLazySingleton<SignInOrUpWithGoogleUseCase>(
     () => SignInOrUpWithGoogleUseCase(getIt<GoogleAuthRepoImp>()),
   );

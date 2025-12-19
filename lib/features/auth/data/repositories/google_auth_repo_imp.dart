@@ -5,11 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleAuthRepoImp implements SocialAuthRepo {
+  final GoogleSignIn googleSignIn;
+  final FirebaseAuth firebaseAuth;
+  GoogleAuthRepoImp({required this.googleSignIn, required this.firebaseAuth});
   @override
   Future<ResponseResult<UserCredential>> signInOrUp() async {
     // Trigger the authentication flow
     try {
-      final GoogleSignIn googleUser = GoogleSignIn.instance;
+      final GoogleSignIn googleUser = googleSignIn;
       await googleUser.initialize();
       final GoogleSignInAccount googleUserAccount = await googleUser
           .authenticate();
@@ -22,11 +25,11 @@ class GoogleAuthRepoImp implements SocialAuthRepo {
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
-
-      // Once signed in, return the UserCredential
-      return ResponseResult.success(
-        await FirebaseAuth.instance.signInWithCredential(credential),
+      final userCredential = await firebaseAuth.signInWithCredential(
+        credential,
       );
+      // Once signed in, return the UserCredential
+      return ResponseResult.success(userCredential);
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
         return const ResponseResult.failure(
