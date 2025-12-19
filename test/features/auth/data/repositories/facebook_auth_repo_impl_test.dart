@@ -8,9 +8,10 @@ import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/data/repositories/facebook_auth_repo_impl.dart';
 
 import '../../../../core/mocks/firebase_auth/firebase_auth.mocks.dart';
+import '../../../../core/mocks/user_credential/user_credential.mocks.dart';
 import 'facebook_auth_repo_impl_test.mocks.dart';
 
-@GenerateMocks([FacebookAuth, UserCredential])
+@GenerateMocks([FacebookAuth])
 void main() {
   late MockFirebaseAuth firebaseAuth;
   late MockFacebookAuth facebookAuth;

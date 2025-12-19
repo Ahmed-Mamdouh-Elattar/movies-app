@@ -5,7 +5,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart' as _i3;
 import 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart'
     as _i2;
@@ -149,13 +148,4 @@ class MockFacebookAuth extends _i1.Mock implements _i3.FacebookAuth {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
-}
-
-/// A class which mocks [UserCredential].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUserCredential extends _i1.Mock implements _i5.UserCredential {
-  MockUserCredential() {
-    _i1.throwOnMissingStub(this);
-  }
 }
