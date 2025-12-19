@@ -6,8 +6,8 @@ import 'package:movies_app/core/services/api/api_service.dart';
 import 'package:movies_app/core/services/shared_preferences/shared_preferences_service.dart';
 import 'package:movies_app/features/watch_list/data/datasources/watch_list_movies_source.dart';
 
-import '../../../../core/mocks/api_service.mocks.dart';
-import '../../../../core/services/shared_preferences/shared_preferences_service_test.mocks.dart';
+import '../../../../core/mocks/api_service/api_service.mocks.dart';
+import '../../../../core/mocks/shared_preferences/shared_preferences_service_test.mocks.dart';
 
 void main() {
   late SharedPreferencesService sharedPreferencesService;

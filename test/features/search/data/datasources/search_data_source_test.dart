@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:movies_app/core/models/movies_model/movies_model.dart';
 import 'package:movies_app/core/services/api/api_service.dart';
 
-import '../../../../core/mocks/api_service.mocks.dart';
+import '../../../../core/mocks/api_service/api_service.mocks.dart';
 
 @GenerateMocks([ApiService])
 void main() {

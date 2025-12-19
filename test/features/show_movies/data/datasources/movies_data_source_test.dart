@@ -8,7 +8,7 @@ import 'package:movies_app/features/show_movies/data/datasources/movies_data_sou
 import 'package:movies_app/features/show_movies/data/models/movie_cast_model/movie_cast_model.dart';
 import 'package:movies_app/features/show_movies/data/models/movie_reviews_model/movie_reviews_model.dart';
 
-import '../../../../core/mocks/api_service.mocks.dart';
+import '../../../../core/mocks/api_service/api_service.mocks.dart';
 
 @GenerateMocks([ApiService])
 void main() {

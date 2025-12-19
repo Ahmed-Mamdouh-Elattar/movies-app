@@ -9,7 +9,7 @@ import 'package:movies_app/features/watch_list/domain/entities/movie_watch_list_
 import 'package:movies_app/features/watch_list/domain/usecases/get_movies_watch_list_use_case.dart';
 import 'package:movies_app/features/watch_list/presentation/managers/watch_list_cubit/watch_list_cubit.dart';
 
-import '../../../../../core/services/shared_preferences/shared_preferences_service_test.mocks.dart';
+import '../../../../../core/mocks/shared_preferences/shared_preferences_service_test.mocks.dart';
 import 'watch_list_cubit_test.mocks.dart';
 
 @GenerateMocks([GetMoviesWatchListUseCase])
