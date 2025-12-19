@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_app/core/networking/dio/dio_object.dart';
 import 'package:movies_app/core/networking/network_info/network_cubit/network_cubit.dart';
@@ -55,7 +56,7 @@ Future<void> setUpServiceLocator() async {
     () => SignInOrUpWithGoogleUseCase(getIt<GoogleAuthRepoImp>()),
   );
   getIt.registerLazySingleton<FacebookAuthRepoImpl>(
-    () => FacebookAuthRepoImpl(),
+    () => FacebookAuthRepoImpl(FirebaseAuth.instance, FacebookAuth.instance),
   );
   getIt.registerLazySingleton<SignInOrUpWithFacebookUseCase>(
     () => SignInOrUpWithFacebookUseCase(getIt<FacebookAuthRepoImpl>()),

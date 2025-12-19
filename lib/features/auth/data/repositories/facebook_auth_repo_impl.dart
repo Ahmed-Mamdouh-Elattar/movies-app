@@ -5,18 +5,23 @@ import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/repositories/social_auth_repo.dart';
 
 class FacebookAuthRepoImpl implements SocialAuthRepo {
+  final FirebaseAuth _firebaseAuth;
+  final FacebookAuth _facebookAuth;
+
+  FacebookAuthRepoImpl(this._firebaseAuth, this._facebookAuth);
+
   @override
   Future<ResponseResult<UserCredential>> signInOrUp() async {
     // Trigger the sign-in flow
 
-    final LoginResult loginResult = await FacebookAuth.instance.login(
+    final LoginResult loginResult = await _facebookAuth.login(
       permissions: ['email', 'public_profile', 'user_photos'],
     );
     final OAuthCredential facebookAuthCredential;
     // Create a credential from the access token
     if (loginResult.status == LoginStatus.success) {
       facebookAuthCredential = FacebookAuthProvider.credential(
-        loginResult.accessToken!.tokenString,
+        loginResult.accessToken?.tokenString ?? '',
       );
     } else if (loginResult.status == LoginStatus.cancelled) {
       return const ResponseResult.failure(
@@ -41,7 +46,7 @@ class FacebookAuthRepoImpl implements SocialAuthRepo {
 
     // Once signed in, return the UserCredential
     return ResponseResult.success(
-      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential),
+      await _firebaseAuth.signInWithCredential(facebookAuthCredential),
     );
   }
 }
