@@ -6,7 +6,9 @@ import 'package:movies_app/core/utils/response_result.dart';
 import 'package:movies_app/features/auth/domain/repositories/phone_auth_repo.dart';
 
 class PhoneAuthRepoImpl implements PhoneAuthRepo {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
+
+  PhoneAuthRepoImpl({required FirebaseAuth auth}) : _auth = auth;
 
   @override
   Future<ResponseResult<String>> sendCode(String phoneNumber) async {
@@ -21,7 +23,7 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
           await _auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
-          completer.completeError(e);
+          throw e;
         },
         codeSent: (verId, _) {
           completer.complete(verId);
@@ -32,6 +34,10 @@ class PhoneAuthRepoImpl implements PhoneAuthRepo {
       );
       String verificationId = await completer.future;
       return ResponseResult.success(verificationId);
+    } on FirebaseAuthException catch (e) {
+      return ResponseResult.failure(
+        Failures(errMessage: e.message ?? "Something went wrong"),
+      );
     } catch (e) {
       return ResponseResult.failure(Failures(errMessage: e.toString()));
     }
