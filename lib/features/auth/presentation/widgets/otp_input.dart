@@ -19,6 +19,7 @@ class OtpInput extends HookWidget {
           otpFieldController.text.length == 6) {
         await context.read<PhoneAuthCubit>().verifyCode(
           otpFieldController.text,
+          context.read<PhoneAuthCubit>().verificationId,
         );
       } else {
         showAppToast(context, "Enter valid OTP");

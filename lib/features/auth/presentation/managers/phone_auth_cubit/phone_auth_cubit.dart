@@ -31,10 +31,10 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     }
   }
 
-  Future<void> verifyCode(String smsCode) async {
+  Future<void> verifyCode(String smsCode, String? verificationId) async {
     emit(const PhoneAuthState.loading());
     if (verificationId != null) {
-      final result = await _verifyCodeUseCase.call(verificationId!, smsCode);
+      final result = await _verifyCodeUseCase.call(verificationId, smsCode);
       switch (result) {
         case ResponseResultSuccess<String>():
           emit(const PhoneAuthState.success());
