@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movies_app/features/auth/data/repositories/auth_repo_impl.dart';
 
 import '../../../../core/mocks/firebase_auth/firebase_auth.mocks.dart';
-import 'auth_repo_impl_test.mocks.dart';
+import '../../../../core/mocks/user/user.mocks.dart';
 
-@GenerateMocks([User])
 void main() {
   late AuthRepoImpl authRepoImpl;
   late MockFirebaseAuth mockFirebaseAuth;
