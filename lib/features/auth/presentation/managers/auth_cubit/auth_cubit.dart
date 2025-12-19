@@ -12,7 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   final GetAuthStateUseCase _getAuthStateUseCase;
   final SignOutUseCase _signOutUseCase;
   late final Stream<User?> _authState;
-  late StreamSubscription<User?> _authStateSubscription;
+  StreamSubscription<User?>? _authStateSubscription;
 
   AuthCubit(this._getAuthStateUseCase, this._signOutUseCase)
     : super(const AuthState.initial());
@@ -34,7 +34,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   @override
   Future<void> close() {
-    _authStateSubscription.cancel();
+    _authStateSubscription?.cancel();
+
     return super.close();
   }
 }
