@@ -14,23 +14,23 @@ class AiChatCubit extends Cubit<AiChatState> {
   final GetAiChatResponseUseCase _getAiChatResponseUseCase;
   final List<ChatEntity> _chatMessages = [];
   Future<void> getAIChatResponse(ChatEntity chatEntity) async {
-    _chatMessages.add(chatEntity);
     if (chatEntity.message.isEmpty) {
       return;
     }
-    emit(AiChatState.loaded(chatMessages: _chatMessages));
-    emit(AiChatState.loading(chatMessages: _chatMessages));
+    _chatMessages.add(chatEntity);
+    emit(AiChatState.loaded(chatMessages: [..._chatMessages]));
+    emit(AiChatState.loading(chatMessages: [..._chatMessages]));
     final response = await _getAiChatResponseUseCase.call(chatEntity.message);
     response.when(
       success: (message) {
         _chatMessages.add(message);
-        emit(AiChatState.loaded(chatMessages: _chatMessages));
+        emit(AiChatState.loaded(chatMessages: [..._chatMessages]));
       },
       failure: (failure) {
         emit(
           AiChatState.failure(
             message: failure.errMessage,
-            chatMessages: _chatMessages,
+            chatMessages: [..._chatMessages],
           ),
         );
       },
